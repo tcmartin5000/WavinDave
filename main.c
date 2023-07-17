@@ -7,6 +7,7 @@
 void main(void)
 {
     uint8_t spriteMvtTimer = 0;
+    uint8_t joypadVal = 0;
 
     /* Initialize background tile information. */
     set_bkg_data(0, 20, BackgroundTiles1);
@@ -24,10 +25,8 @@ void main(void)
     DISPLAY_ON;
 
     while (1) {
-        if (joypad()) {
-            switch (joypad())
-            {
-            case J_LEFT:
+        if (joypadVal = joypad()) {
+            if (joypadVal & J_LEFT) {
                 scroll_bkg(-1, 0);
                 if (spriteMvtTimer < 6) {
                     /* Index of first sprite in walk cycle left. */
@@ -43,8 +42,7 @@ void main(void)
                     set_sprite_prop(0, S_FLIPX);
                 }
                 spriteMvtTimer = (spriteMvtTimer + 1) % 18;
-                break;
-            case J_RIGHT:
+            } else if (joypadVal & J_RIGHT) {
                 scroll_bkg(1, 0);
                 if (spriteMvtTimer < 6) {
                     /* Index of first sprite in walk cycle right. */
@@ -60,8 +58,7 @@ void main(void)
                     set_sprite_prop(0, !S_FLIPX);
                 }
                 spriteMvtTimer = (spriteMvtTimer + 1) % 18;
-                break;
-            case J_UP:
+            } else if (joypadVal == J_UP) {
                 if (spriteMvtTimer < 6) {
                     /* Index of first sprite in wave cycle. */
                     set_sprite_tile(0, 10);
@@ -71,8 +68,7 @@ void main(void)
                 }
                 spriteMvtTimer = (spriteMvtTimer + 1) % 12;
             }
-        }
-        else {
+        } else {
             spriteMvtTimer = 0;
             set_sprite_tile(0, 0);
         }
