@@ -30,31 +30,44 @@ void main(void)
             case J_LEFT:
                 scroll_bkg(-1, 0);
                 if (spriteMvtTimer < 6) {
-                    set_sprite_tile(0, 10);
+                    /* Index of first sprite in walk cycle left. */
+                    set_sprite_tile(0, 4);
+                    set_sprite_prop(0, S_FLIPX);
                 } else if (spriteMvtTimer < 12) {
-                    set_sprite_tile(0, 12);
+                    /* Index of second sprite in walk cycle left. */
+                    set_sprite_tile(0, 6);
+                    set_sprite_prop(0, S_FLIPX);
                 } else {
-                    set_sprite_tile(0, 14);
+                    /* Index of third sprite in walk cycle left. */
+                    set_sprite_tile(0, 8);
+                    set_sprite_prop(0, S_FLIPX);
                 }
                 spriteMvtTimer = (spriteMvtTimer + 1) % 18;
                 break;
             case J_RIGHT:
                 scroll_bkg(1, 0);
                 if (spriteMvtTimer < 6) {
+                    /* Index of first sprite in walk cycle right. */
                     set_sprite_tile(0, 4);
+                    set_sprite_prop(0, !S_FLIPX);
                 } else if (spriteMvtTimer < 12) {
+                    /* Index of second sprite in walk cycle right. */
                     set_sprite_tile(0, 6);
+                    set_sprite_prop(0, !S_FLIPX);
                 } else {
+                    /* Index of third sprite in walk cycle right. */
                     set_sprite_tile(0, 8);
+                    set_sprite_prop(0, !S_FLIPX);
                 }
                 spriteMvtTimer = (spriteMvtTimer + 1) % 18;
                 break;
             case J_UP:
                 if (spriteMvtTimer < 6) {
-
-                    set_sprite_tile(0, 16);
+                    /* Index of first sprite in wave cycle. */
+                    set_sprite_tile(0, 10);
                 } else {
-                    set_sprite_tile(0, 18);
+                    /* Index of second sprite in wave cycle. */
+                    set_sprite_tile(0, 12);
                 }
                 spriteMvtTimer = (spriteMvtTimer + 1) % 12;
             }

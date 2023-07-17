@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "stdint.h": "c",
+        "backgroundtiles1.h": "c"
+    }
+}
