@@ -1,0 +1,785 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+.  .ABS.               00000000    00000000 =           0. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000000  .__.ABS.  |    00000000  _rRAMG    |    00000000  l__BASE  
+     00000000  l__BSS    |    00000000  l__CABS   |    00000000  l__CODE_0
+     00000000  l__DABS   |    00000000  l__HEADER |    00000000  l__HEAP  
+     00000000  l__HEAP_E |    00000000  l__HRAM   |    00000000  l__LIT   
+     00000000  s__CABS   |    00000000  s__DABS   |    00000000  s__HEADER
+     00000000  s__HEADER |    00000000  s__HEADER |    00000000  s__HEADER
+     00000000  s__HEADER |    00000000  s__HEADER |    00000000  s__HEADER
+     00000000  s__HEADER |    00000000  s__HEADER |    00000000  s__HEADER
+     00000000  s__HEADER |    00000000  s__HEADER |    00000000  s__HEADER
+     00000000  s__HEADER |    00000000  s__HEADER |    00000000  s__HEADER
+     00000000  s__HEADER |    00000000  s__HEADER |    00000000  s__HEADER
+     00000000  s__HRAM   |    00000000  s__HRAM12 |    00000001  l__GSFINA
+     00000001  l__HEADER |    00000001  l__HEADER |    00000001  l__HEADER
+     00000001  l__HEADER |    00000001  l__HEADER |    00000001  l__HEADER
+     00000001  l__HEADER |    00000001  l__INITIA |    00000001  l__INITIA
+     00000002  l__HEADER |    00000002  l__HEADER |    00000002  l__HEADER
+     00000003  l__HEADER |    00000003  l__HRAM12 |    00000005  l__HEADER
+     00000006  l__HEADER |    00000007  l__HEADER |    00000008  l__HEADER
+     0000000C  l__GSINIT |    00000011  l__DATA   |    00000030  l__HEADER
+     0000004C  l__HEADER |    00000084  l__HEADER |    0000017D  l__HOME  
+     00000200  s__CODE   |    00000AA2  l__CODE   |    00000CA2  s__HOME  
+     00000E1F  s__BASE   |    00000E1F  s__CODE_0 |    00000E1F  s__INITIA
+     00000E1F  s__LIT    |    00000E20  s__GSINIT |    00000E2C  s__GSFINA
+     00002000  _rROMB0   |    00003000  _rROMB1   |    00004000  _rRAMB   
+     00008000  __VRAM    |    00008000  __VRAM800 |    00008800  __VRAM880
+     00009000  __VRAM900 |    00009800  __SCRN0   |    00009C00  __SCRN1  
+     0000A000  __SRAM    |    0000C000  __RAM     |    0000C000  _shadow_O
+     0000C0A0  s__DATA   |    0000C0B1  s__BSS    |    0000C0B1  s__INITIA
+     0000C0B2  s__HEAP   |    0000C0B2  s__HEAP_E |    0000D000  __RAMBANK
+     0000E000  .STACK    |    0000FE00  __OAMRAM  |    0000FF00  _P1_REG  
+     0000FF00  __IO      |    0000FF01  _SB_REG   |    0000FF02  _SC_REG  
+     0000FF04  _DIV_REG  |    0000FF05  _TIMA_REG |    0000FF06  _TMA_REG 
+     0000FF07  _TAC_REG  |    0000FF0F  _IF_REG   |    0000FF10  _NR10_REG
+     0000FF11  _NR11_REG |    0000FF12  _NR12_REG |    0000FF13  _NR13_REG
+     0000FF14  _NR14_REG |    0000FF16  _NR21_REG |    0000FF17  _NR22_REG
+     0000FF18  _NR23_REG |    0000FF19  _NR24_REG |    0000FF1A  _NR30_REG
+     0000FF1B  _NR31_REG |    0000FF1C  _NR32_REG |    0000FF1D  _NR33_REG
+     0000FF1E  _NR34_REG |    0000FF20  _NR41_REG |    0000FF21  _NR42_REG
+     0000FF22  _NR43_REG |    0000FF23  _NR44_REG |    0000FF24  _NR50_REG
+     0000FF25  _NR51_REG |    0000FF26  _NR52_REG |    0000FF30  _AUD3WAVE
+     0000FF30  _PCM_SAMP |    0000FF30  __AUD3WAV |    0000FF40  _LCDC_REG
+     0000FF41  _STAT_REG |    0000FF42  _SCY_REG  |    0000FF43  _SCX_REG 
+     0000FF44  _LY_REG   |    0000FF45  _LYC_REG  |    0000FF46  _DMA_REG 
+     0000FF47  _BGP_REG  |    0000FF48  _OBP0_REG |    0000FF49  _OBP1_REG
+     0000FF4A  _WY_REG   |    0000FF4B  _WX_REG   |    0000FF4D  _KEY1_REG
+     0000FF4F  _VBK_REG  |    0000FF51  _HDMA1_RE |    0000FF52  _HDMA2_RE
+     0000FF53  _HDMA3_RE |    0000FF54  _HDMA4_RE |    0000FF55  _HDMA5_RE
+     0000FF56  _RP_REG   |    0000FF68  _BCPS_REG |    0000FF69  _BCPD_REG
+     0000FF6A  _OCPS_REG |    0000FF6B  _OCPD_REG |    0000FF70  _SVBK_REG
+     0000FF76  _PCM12_RE |    0000FF77  _PCM34_RE |    0000FF80  .refresh_
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+.  .ABS.               00000000    00000000 =           0. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     0000FF80  __HRAM    |    0000FFFF  _IE_REG  
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_CODE                  00000200    00000AA2 =        2722. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000200  G$Backgro |    00000200  _Backgrou |    00000440  G$Backgro
+     00000440  _Backgrou |    00000540  G$Sprite1 |    00000540  _Sprite1 
+     00000620  A$main$58 |    00000620  C$main.c$ |    00000620  G$gravity
+     00000620  _gravity  |    00000622  A$main$59 |    00000624  A$main$60
+     00000625  A$main$61 |    00000626  A$main$62 |    00000627  A$main$66
+     00000627  C$main.c$ |    00000629  A$main$67 |    0000062B  A$main$71
+     0000062B  C$main.c$ |    0000062D  A$main$72 |    0000062E  A$main$73
+     0000062F  A$main$74 |    00000630  A$main$75 |    00000633  A$main$76
+     00000634  A$main$77 |    00000635  A$main$78 |    00000636  A$main$79
+     00000638  A$main$80 |    00000639  A$main$81 |    0000063A  A$main$82
+     0000063B  A$main$83 |    0000063D  A$main$84 |    0000063E  A$main$85
+     0000063F  A$main$86 |    00000640  A$main$87 |    00000641  A$main$88
+     00000642  A$main$89 |    00000643  A$main$90 |    00000645  A$main$91
+     00000648  A$main$92 |    0000064B  A$main$93 |    0000064C  A$main$94
+     0000064D  A$main$95 |    0000064F  A$main$99 |    0000064F  C$main.c$
+     00000651  A$main$10 |    00000652  A$main$10 |    00000653  A$main$10
+     00000654  A$main$10 |    00000655  A$main$10 |    00000656  A$main$10
+     00000657  A$main$11 |    00000658  A$main$11 |    0000065A  A$main$11
+     0000065A  C$main.c$ |    0000065C  A$main$11 |    0000065E  A$main$12
+     0000065E  C$main.c$ |    0000065F  A$main$12 |    00000661  A$main$12
+     00000663  A$main$12 |    00000665  A$main$12 |    00000665  C$main.c$
+     00000666  A$main$12 |    00000667  A$main$13 |    00000668  A$main$13
+     00000668  C$main.c$ |    0000066A  A$main$13 |    0000066B  A$main$13
+     0000066C  A$main$13 |    0000066D  A$main$13 |    0000066E  A$main$14
+     0000066F  A$main$14 |    00000670  A$main$14 |    00000671  A$main$14
+     00000672  A$main$14 |    00000673  A$main$14 |    00000674  A$main$14
+     00000674  C$main.c$ |    00000676  A$main$15 |    00000677  A$main$15
+     00000678  A$main$15 |    00000679  A$main$15 |    0000067A  A$main$15
+     0000067B  A$main$15 |    0000067C  A$main$15 |    0000067D  A$main$15
+     0000067E  A$main$15 |    00000680  A$main$15 |    00000681  A$main$16
+     00000682  A$main$16 |    00000683  A$main$16 |    00000685  A$main$16
+     00000686  A$main$16 |    00000687  A$main$16 |    00000688  A$main$16
+     00000689  A$main$16 |    0000068A  A$main$16 |    0000068B  A$main$16
+     0000068C  A$main$17 |    0000068D  A$main$17 |    0000068E  A$main$17
+     0000068F  A$main$17 |    00000690  A$main$17 |    00000691  A$main$17
+     00000693  A$main$17 |    00000694  A$main$17 |    00000695  A$main$17
+     00000696  A$main$17 |    00000699  A$main$18 |    0000069A  A$main$18
+     0000069B  A$main$18 |    0000069C  A$main$18 |    0000069E  A$main$18
+     0000069F  A$main$18 |    000006A0  A$main$18 |    000006A1  A$main$18
+     000006A3  A$main$18 |    000006A4  A$main$18 |    000006A5  A$main$19
+     000006A6  A$main$19 |    000006A7  A$main$19 |    000006A8  A$main$19
+     000006A9  A$main$19 |    000006AA  A$main$19 |    000006AB  A$main$19
+     000006AC  A$main$19 |    000006AD  A$main$19 |    000006AE  A$main$19
+     000006AF  A$main$20 |    000006B0  A$main$20 |    000006B1  A$main$20
+     000006B2  A$main$20 |    000006B3  A$main$20 |    000006B5  A$main$20
+     000006B7  A$main$20 |    000006B8  A$main$20 |    000006BA  A$main$20
+     000006BB  A$main$20 |    000006BD  A$main$21 |    000006BF  A$main$21
+     000006C1  A$main$21 |    000006C3  A$main$21 |    000006C4  A$main$21
+     000006C6  A$main$21 |    000006C8  A$main$21 |    000006CA  A$main$21
+     000006CB  A$main$22 |    000006CE  A$main$22 |    000006CE  C$main.c$
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_CODE                  00000200    00000AA2 =        2722. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     000006D0  A$main$22 |    000006D1  A$main$22 |    000006D2  A$main$22
+     000006D3  A$main$22 |    000006D4  A$main$22 |    000006D5  A$main$23
+     000006D6  A$main$23 |    000006D8  A$main$23 |    000006D9  A$main$23
+     000006DA  A$main$23 |    000006DB  A$main$23 |    000006DD  A$main$23
+     000006DD  C$main.c$ |    000006DF  A$main$24 |    000006E0  A$main$24
+     000006E1  A$main$24 |    000006E2  A$main$24 |    000006E5  A$main$24
+     000006E6  A$main$24 |    000006E7  A$main$24 |    000006E8  A$main$24
+     000006E9  A$main$24 |    000006EB  A$main$24 |    000006EC  A$main$25
+     000006ED  A$main$25 |    000006F0  A$main$25 |    000006F3  A$main$25
+     000006F4  A$main$25 |    000006F5  A$main$25 |    000006F6  A$main$26
+     000006F7  A$main$26 |    000006F8  A$main$26 |    000006F9  A$main$26
+     000006FA  A$main$26 |    000006FB  A$main$26 |    000006FD  A$main$26
+     000006FE  A$main$26 |    000006FF  A$main$26 |    00000700  A$main$26
+     00000703  A$main$27 |    00000704  A$main$27 |    00000705  A$main$27
+     00000706  A$main$27 |    00000707  A$main$27 |    00000708  A$main$27
+     0000070A  A$main$27 |    0000070B  A$main$28 |    0000070C  A$main$28
+     0000070D  A$main$28 |    00000710  A$main$28 |    00000711  A$main$28
+     00000712  A$main$28 |    00000715  A$main$28 |    00000716  A$main$28
+     00000717  A$main$28 |    00000718  A$main$29 |    00000719  A$main$29
+     0000071C  A$main$29 |    0000071D  A$main$29 |    0000071E  A$main$29
+     0000071E  C$main.c$ |    00000720  A$main$29 |    00000721  A$main$29
+     00000723  A$main$30 |    00000724  A$main$30 |    00000726  A$main$30
+     00000728  A$main$30 |    0000072A  A$main$30 |    0000072C  A$main$30
+     0000072C  C$main.c$ |    0000072E  A$main$31 |    00000730  A$main$31
+     00000730  C$main.c$ |    00000732  A$main$31 |    00000733  A$main$31
+     00000734  A$main$31 |    00000735  A$main$31 |    00000738  A$main$32
+     00000739  A$main$32 |    0000073A  A$main$32 |    0000073B  A$main$32
+     0000073D  A$main$32 |    0000073E  A$main$32 |    0000073F  A$main$32
+     00000740  A$main$32 |    00000742  A$main$32 |    00000743  A$main$32
+     00000744  A$main$33 |    00000745  A$main$33 |    00000746  A$main$33
+     00000747  A$main$33 |    00000748  A$main$33 |    00000749  A$main$33
+     0000074A  A$main$33 |    0000074B  A$main$33 |    0000074C  A$main$33
+     0000074D  A$main$33 |    0000074E  A$main$34 |    0000074F  A$main$34
+     00000752  A$main$34 |    00000755  A$main$34 |    00000756  A$main$34
+     00000757  A$main$34 |    00000758  A$main$35 |    00000759  A$main$35
+     0000075A  A$main$35 |    0000075B  A$main$35 |    0000075C  A$main$35
+     0000075D  A$main$35 |    0000075E  A$main$35 |    00000760  A$main$35
+     00000761  A$main$35 |    00000762  A$main$35 |    00000763  A$main$36
+     00000766  A$main$36 |    00000767  A$main$36 |    00000768  A$main$36
+     00000769  A$main$36 |    0000076A  A$main$36 |    0000076C  A$main$36
+     0000076D  A$main$36 |    0000076E  A$main$36 |    0000076F  A$main$36
+     00000770  A$main$37 |    00000771  A$main$37 |    00000772  A$main$37
+     00000773  A$main$37 |    00000774  A$main$37 |    00000775  A$main$37
+     00000778  A$main$37 |    00000779  A$main$37 |    0000077A  A$main$38
+     0000077A  C$main.c$ |    0000077C  A$main$38 |    0000077D  A$main$38
+     0000077F  A$main$38 |    00000780  A$main$38 |    00000782  A$main$38
+     00000784  A$main$38 |    00000786  A$main$38 |    00000788  A$main$39
+     00000788  C$main.c$ |    0000078A  A$main$39 |    0000078C  A$main$39
+     0000078C  C$main.c$ |    0000078E  A$main$40 |    0000078F  A$main$40
+     00000790  A$main$40 |    00000793  A$main$40 |    00000795  A$main$40
+     00000796  A$main$40 |    00000798  A$main$40 |    00000799  A$main$40
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_CODE                  00000200    00000AA2 =        2722. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     0000079A  A$main$40 |    0000079C  A$main$40 |    0000079E  A$main$41
+     000007A0  A$main$41 |    000007A2  A$main$41 |    000007A3  A$main$41
+     000007A5  A$main$41 |    000007A7  A$main$41 |    000007A9  A$main$41
+     000007AA  A$main$41 |    000007AC  A$main$42 |    000007AC  C$main.c$
+     000007AE  A$main$42 |    000007AF  A$main$42 |    000007B0  A$main$42
+     000007B2  A$main$43 |    000007B2  C$main.c$ |    000007B4  A$main$43
+     000007B5  A$main$43 |    000007B6  A$main$43 |    000007B7  A$main$43
+     000007B8  A$main$43 |    000007B9  A$main$43 |    000007BC  A$main$43
+     000007BF  A$main$43 |    000007C0  A$main$44 |    000007C1  A$main$44
+     000007C2  A$main$44 |    000007C3  A$main$44 |    000007C4  A$main$44
+     000007C5  A$main$44 |    000007C6  A$main$44 |    000007C7  A$main$45
+     000007C8  A$main$45 |    000007CA  A$main$45 |    000007CB  A$main$45
+     000007CC  A$main$45 |    000007CD  A$main$45 |    000007CE  A$main$46
+     000007CF  A$main$46 |    000007D2  A$main$46 |    000007D3  A$main$46
+     000007D4  A$main$46 |    000007D7  A$main$46 |    000007D8  A$main$46
+     000007D9  A$main$46 |    000007DA  A$main$46 |    000007DB  A$main$46
+     000007DE  A$main$47 |    000007DF  A$main$47 |    000007E0  A$main$47
+     000007E0  C$main.c$ |    000007E2  A$main$47 |    000007E3  A$main$47
+     000007E5  A$main$47 |    000007E6  A$main$47 |    000007E8  A$main$48
+     000007EA  A$main$48 |    000007EC  A$main$48 |    000007EE  A$main$48
+     000007EE  C$main.c$ |    000007F0  A$main$48 |    000007F2  A$main$49
+     000007F2  C$main.c$ |    000007F4  A$main$49 |    000007F5  A$main$49
+     000007F6  A$main$49 |    000007F7  A$main$49 |    000007F8  A$main$49
+     000007F9  A$main$49 |    000007FC  A$main$50 |    000007FF  A$main$50
+     00000800  A$main$50 |    00000801  A$main$50 |    00000802  A$main$50
+     00000803  A$main$50 |    00000804  A$main$51 |    00000805  A$main$51
+     00000806  A$main$51 |    00000807  A$main$51 |    00000808  A$main$51
+     0000080A  A$main$51 |    0000080B  A$main$51 |    0000080C  A$main$51
+     0000080D  A$main$51 |    0000080E  A$main$51 |    0000080F  A$main$52
+     00000810  A$main$52 |    00000813  A$main$52 |    00000814  A$main$52
+     00000815  A$main$52 |    00000815  C$main.c$ |    00000817  A$main$52
+     00000818  A$main$52 |    0000081A  A$main$53 |    0000081B  A$main$53
+     0000081D  A$main$53 |    0000081F  A$main$53 |    00000821  A$main$53
+     00000823  A$main$53 |    00000823  C$main.c$ |    00000825  A$main$54
+     00000827  A$main$54 |    00000827  C$main.c$ |    00000829  A$main$54
+     0000082A  A$main$54 |    0000082B  A$main$54 |    0000082E  A$main$55
+     00000830  A$main$55 |    00000830  C$main.c$ |    00000831  A$main$55
+     00000832  A$main$55 |    00000835  A$main$55 |    00000836  A$main$56
+     00000837  A$main$56 |    00000838  A$main$56 |    00000839  A$main$56
+     0000083A  A$main$56 |    0000083B  A$main$56 |    0000083C  A$main$56
+     0000083D  A$main$56 |    0000083E  A$main$56 |    0000083F  A$main$56
+     00000840  A$main$57 |    00000841  A$main$57 |    00000842  A$main$57
+     00000843  A$main$57 |    00000845  A$main$57 |    00000846  A$main$57
+     00000847  A$main$57 |    00000848  A$main$57 |    00000849  A$main$57
+     0000084A  A$main$58 |    0000084B  A$main$58 |    0000084C  A$main$58
+     0000084D  A$main$58 |    0000084E  A$main$58 |    0000084F  A$main$58
+     00000851  A$main$58 |    00000853  A$main$59 |    00000854  A$main$59
+     00000856  A$main$59 |    00000857  A$main$59 |    00000859  A$main$59
+     0000085B  A$main$59 |    0000085D  A$main$59 |    0000085F  A$main$59
+     00000860  A$main$59 |    00000862  A$main$60 |    00000864  A$main$60
+     00000866  A$main$60 |    00000867  A$main$60 |    00000869  A$main$60
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_CODE                  00000200    00000AA2 =        2722. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000869  C$main.c$ |    0000086B  A$main$60 |    0000086C  A$main$61
+     0000086D  A$main$61 |    0000086E  A$main$61 |    0000086F  A$main$61
+     00000871  A$main$61 |    00000872  A$main$61 |    00000873  A$main$61
+     00000875  A$main$61 |    00000876  A$main$61 |    00000877  A$main$61
+     00000878  A$main$62 |    00000879  A$main$62 |    0000087A  A$main$62
+     0000087B  A$main$62 |    0000087E  A$main$62 |    0000087F  A$main$62
+     00000880  A$main$62 |    00000881  A$main$62 |    00000883  A$main$62
+     00000884  A$main$62 |    00000885  A$main$63 |    00000886  A$main$63
+     00000888  A$main$63 |    00000889  A$main$63 |    0000088C  A$main$63
+     0000088D  A$main$63 |    0000088E  A$main$63 |    0000088F  A$main$63
+     00000892  A$main$63 |    00000894  A$main$63 |    00000895  A$main$64
+     00000896  A$main$64 |    00000897  A$main$64 |    00000898  A$main$64
+     0000089A  A$main$64 |    0000089A  C$main.c$ |    0000089C  A$main$64
+     0000089D  A$main$65 |    0000089E  A$main$65 |    0000089F  A$main$65
+     000008A0  A$main$65 |    000008A1  A$main$65 |    000008A3  A$main$65
+     000008A4  A$main$65 |    000008A7  A$main$65 |    000008AA  A$main$65
+     000008AC  A$main$65 |    000008AD  A$main$66 |    000008AE  A$main$66
+     000008AF  A$main$66 |    000008B0  A$main$66 |    000008B0  C$main.c$
+     000008B2  A$main$66 |    000008B3  A$main$66 |    000008B4  A$main$67
+     000008B5  A$main$67 |    000008B6  A$main$67 |    000008B7  A$main$67
+     000008B8  A$main$67 |    000008B9  A$main$67 |    000008BA  A$main$67
+     000008BC  A$main$67 |    000008BD  A$main$67 |    000008BE  A$main$67
+     000008BF  A$main$68 |    000008C0  A$main$68 |    000008C1  A$main$68
+     000008C2  A$main$68 |    000008C3  A$main$68 |    000008C4  A$main$68
+     000008C5  A$main$69 |    000008C6  A$main$69 |    000008C7  A$main$69
+     000008CA  A$main$69 |    000008CD  A$main$69 |    000008CF  A$main$69
+     000008D0  A$main$69 |    000008D1  A$main$69 |    000008D2  A$main$69
+     000008D3  A$main$69 |    000008D5  A$main$70 |    000008D5  C$main.c$
+     000008D7  A$main$70 |    000008D8  A$main$70 |    000008D9  A$main$70
+     000008DB  A$main$71 |    000008DB  C$main.c$ |    000008DD  A$main$71
+     000008DF  A$main$71 |    000008E0  A$main$71 |    000008E0  C$main.c$
+     000008E1  A$main$72 |    000008E2  A$main$72 |    000008E5  A$main$72
+     000008E6  A$main$72 |    000008E7  A$main$72 |    000008E8  A$main$72
+     000008E9  A$main$72 |    000008EA  A$main$72 |    000008EB  A$main$72
+     000008EC  A$main$72 |    000008ED  A$main$73 |    000008EE  A$main$73
+     000008F0  A$main$73 |    000008F0  C$main.c$ |    000008F2  A$main$73
+     000008F3  A$main$73 |    000008F4  A$main$73 |    000008F5  A$main$73
+     000008F7  A$main$74 |    000008F9  A$main$74 |    000008F9  C$main.c$
+     000008FB  A$main$74 |    000008FD  A$main$74 |    000008FE  A$main$75
+     000008FE  C$main.c$ |    000008FF  A$main$75 |    00000900  A$main$75
+     00000903  A$main$75 |    00000904  A$main$75 |    00000905  A$main$75
+     00000906  A$main$75 |    00000907  A$main$76 |    00000908  A$main$76
+     00000909  A$main$76 |    0000090A  A$main$76 |    0000090B  A$main$76
+     0000090C  A$main$76 |    0000090E  A$main$76 |    0000090E  C$main.c$
+     00000910  A$main$77 |    00000911  A$main$77 |    00000912  A$main$77
+     00000913  A$main$77 |    00000914  A$main$77 |    00000916  A$main$77
+     00000917  A$main$77 |    00000918  A$main$77 |    0000091B  A$main$77
+     0000091E  A$main$77 |    00000920  A$main$78 |    00000921  A$main$78
+     00000922  A$main$78 |    00000923  A$main$78 |    00000924  A$main$78
+     00000924  C$main.c$ |    00000926  A$main$78 |    00000927  A$main$78
+     00000928  A$main$79 |    00000929  A$main$79 |    0000092B  A$main$79
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_CODE                  00000200    00000AA2 =        2722. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     0000092D  A$main$79 |    0000092F  A$main$80 |    0000092F  C$main.c$
+     00000930  A$main$80 |    00000931  A$main$80 |    00000934  A$main$80
+     00000935  A$main$80 |    00000936  A$main$80 |    00000937  A$main$80
+     00000938  A$main$80 |    00000939  A$main$80 |    0000093A  A$main$81
+     0000093B  A$main$81 |    0000093C  A$main$81 |    0000093D  A$main$81
+     0000093E  A$main$81 |    0000093F  A$main$81 |    00000941  A$main$81
+     00000942  A$main$81 |    00000943  A$main$81 |    00000944  A$main$81
+     00000945  A$main$82 |    00000946  A$main$82 |    00000947  A$main$82
+     00000948  A$main$82 |    00000949  A$main$82 |    0000094A  A$main$82
+     0000094B  A$main$82 |    0000094C  A$main$82 |    0000094D  A$main$83
+     0000094F  A$main$83 |    0000094F  C$main.c$ |    0000094F  XG$gravit
+     00000950  A$main$84 |    00000950  C$main.c$ |    00000950  G$main$0$
+     00000950  _main     |    00000952  A$main$85 |    00000952  C$main.c$
+     00000954  A$main$85 |    00000954  C$main.c$ |    00000955  A$main$85
+     00000956  A$main$85 |    00000957  A$main$86 |    00000957  C$main.c$
+     00000959  A$main$86 |    0000095A  A$main$86 |    0000095A  C$main.c$
+     0000095C  A$main$86 |    0000095D  A$main$86 |    0000095E  A$main$86
+     00000960  A$main$87 |    00000960  C$main.c$ |    00000962  A$main$87
+     00000962  C$main.c$ |    00000963  A$main$87 |    00000964  A$main$87
+     00000965  A$main$88 |    00000965  C$main.c$ |    00000967  A$main$88
+     00000969  A$main$88 |    00000969  C$main.c$ |    0000096C  A$main$88
+     0000096D  A$main$89 |    00000970  A$main$89 |    00000971  A$main$89
+     00000974  A$main$89 |    00000976  A$main$89 |    00000976  C$main.c$
+     00000979  A$main$89 |    0000097A  A$main$89 |    0000097D  A$main$90
+     0000097E  A$main$90 |    0000097F  A$main$90 |    00000980  A$main$90
+     00000981  A$main$90 |    00000984  A$main$90 |    00000986  A$main$90
+     00000986  C$main.c$ |    00000988  A$main$91 |    0000098A  A$main$91
+     0000098C  A$main$91 |    0000098C  C$main.c$ |    0000098F  A$main$91
+     00000990  A$main$91 |    00000993  A$main$91 |    00000994  A$main$91
+     00000997  A$main$92 |    00000999  A$main$92 |    0000099C  A$main$92
+     0000099E  A$main$92 |    000009A1  A$main$92 |    000009A3  A$main$92
+     000009A4  A$main$92 |    000009A6  A$main$93 |    000009A6  C$main.c$
+     000009A8  A$main$93 |    000009AA  A$main$93 |    000009AC  A$main$93
+     000009AC  C$main.c$ |    000009AE  A$main$94 |    000009B0  A$main$94
+     000009B2  A$main$94 |    000009B2  C$main.c$ |    000009B4  A$main$94
+     000009B6  A$main$94 |    000009B8  A$main$95 |    000009B8  C$main.c$
+     000009B8  C$main.c$ |    000009BB  A$main$95 |    000009BD  A$main$95
+     000009BE  A$main$95 |    000009BF  A$main$95 |    000009C0  A$main$96
+     000009C1  A$main$96 |    000009C2  A$main$96 |    000009C5  A$main$96
+     000009C5  C$main.c$ |    000009C6  A$main$96 |    000009C7  A$main$96
+     000009C9  A$main$96 |    000009CA  A$main$97 |    000009CD  A$main$97
+     000009CF  A$main$97 |    000009D0  A$main$97 |    000009D2  A$main$97
+     000009D2  C$main.c$ |    000009D4  A$main$97 |    000009D5  A$main$98
+     000009D5  C$main.c$ |    000009D7  A$main$98 |    000009D9  A$main$98
+     000009D9  C$main.c$ |    000009DA  A$main$98 |    000009DB  A$main$99
+     000009DC  A$main$99 |    000009DE  A$main$99 |    000009DF  A$main$99
+     000009E0  A$main$99 |    000009E3  A$main$99 |    000009E6  A$main$99
+     000009E8  A$main$10 |    000009E8  C$main.c$ |    000009E9  A$main$10
+     000009EA  A$main$10 |    000009EB  A$main$10 |    000009EC  A$main$10
+     000009ED  A$main$10 |    000009EE  A$main$10 |    000009EF  A$main$10
+     000009F0  A$main$10 |    000009F3  A$main$10 |    000009F6  A$main$10
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_CODE                  00000200    00000AA2 =        2722. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     000009F8  A$main$10 |    000009F9  A$main$10 |    000009FB  A$main$10
+     000009FB  C$main.c$ |    000009FD  A$main$10 |    000009FE  A$main$10
+     000009FF  A$main$10 |    00000A01  A$main$10 |    00000A02  A$main$10
+     00000A03  A$main$10 |    00000A05  A$main$10 |    00000A07  A$main$10
+     00000A09  A$main$10 |    00000A0B  A$main$10 |    00000A0C  A$main$10
+     00000A0E  A$main$10 |    00000A10  A$main$10 |    00000A12  A$main$10
+     00000A13  A$main$10 |    00000A15  A$main$10 |    00000A15  C$main.c$
+     00000A17  A$main$10 |    00000A18  A$main$10 |    00000A1A  A$main$10
+     00000A1B  A$main$10 |    00000A1C  A$main$10 |    00000A1F  A$main$10
+     00000A22  A$main$10 |    00000A24  A$main$10 |    00000A24  C$main.c$
+     00000A25  A$main$10 |    00000A26  A$main$10 |    00000A27  A$main$10
+     00000A28  A$main$10 |    00000A29  A$main$10 |    00000A2A  A$main$10
+     00000A2B  A$main$10 |    00000A2C  A$main$10 |    00000A2F  A$main$10
+     00000A32  A$main$10 |    00000A34  A$main$10 |    00000A35  A$main$10
+     00000A35  C$main.c$ |    00000A37  A$main$10 |    00000A38  A$main$10
+     00000A3A  A$main$10 |    00000A3C  A$main$10 |    00000A3F  A$main$10
+     00000A41  A$main$10 |    00000A44  A$main$10 |    00000A46  A$main$10
+     00000A46  C$main.c$ |    00000A48  A$main$10 |    00000A48  C$main.c$
+     00000A4A  A$main$10 |    00000A4B  A$main$10 |    00000A4D  A$main$10
+     00000A4F  A$main$10 |    00000A52  A$main$10 |    00000A54  A$main$10
+     00000A57  A$main$10 |    00000A59  A$main$10 |    00000A59  C$main.c$
+     00000A5B  A$main$10 |    00000A5E  A$main$11 |    00000A60  A$main$11
+     00000A63  A$main$11 |    00000A65  A$main$11 |    00000A65  C$main.c$
+     00000A65  C$main.c$ |    00000A67  A$main$11 |    00000A68  A$main$11
+     00000A6A  A$main$11 |    00000A6B  A$main$11 |    00000A6C  A$main$11
+     00000A6E  A$main$11 |    00000A6F  A$main$11 |    00000A70  A$main$11
+     00000A71  A$main$11 |    00000A72  A$main$11 |    00000A73  A$main$11
+     00000A74  A$main$11 |    00000A75  A$main$11 |    00000A76  A$main$11
+     00000A77  A$main$11 |    00000A78  A$main$11 |    00000A79  A$main$11
+     00000A7B  A$main$11 |    00000A7C  A$main$11 |    00000A7D  A$main$11
+     00000A7E  A$main$11 |    00000A80  A$main$11 |    00000A81  A$main$11
+     00000A84  A$main$11 |    00000A85  A$main$11 |    00000A86  A$main$11
+     00000A87  A$main$11 |    00000A8A  A$main$11 |    00000A8C  A$main$11
+     00000A8D  A$main$11 |    00000A8E  A$main$11 |    00000A8F  A$main$11
+     00000A91  A$main$11 |    00000A92  A$main$11 |    00000A94  A$main$11
+     00000A95  A$main$11 |    00000A98  A$main$11 |    00000A98  C$main.c$
+     00000A99  A$main$11 |    00000A9B  A$main$11 |    00000A9D  A$main$11
+     00000A9E  A$main$11 |    00000AA1  A$main$11 |    00000AA3  A$main$11
+     00000AA4  A$main$11 |    00000AA6  A$main$11 |    00000AA6  C$main.c$
+     00000AA8  A$main$11 |    00000AA9  A$main$11 |    00000AA9  C$main.c$
+     00000AAB  A$main$11 |    00000AAD  A$main$11 |    00000AAD  C$main.c$
+     00000AAE  A$main$11 |    00000AAF  A$main$11 |    00000AB0  A$main$11
+     00000AB2  A$main$11 |    00000AB3  A$main$11 |    00000AB4  A$main$11
+     00000AB7  A$main$11 |    00000ABA  A$main$11 |    00000ABC  A$main$11
+     00000ABC  C$main.c$ |    00000ABD  A$main$11 |    00000ABE  A$main$11
+     00000ABF  A$main$11 |    00000AC0  A$main$11 |    00000AC1  A$main$11
+     00000AC2  A$main$11 |    00000AC3  A$main$11 |    00000AC4  A$main$11
+     00000AC7  A$main$11 |    00000ACA  A$main$11 |    00000ACC  A$main$11
+     00000ACD  A$main$11 |    00000ACF  A$main$12 |    00000ACF  C$main.c$
+     00000AD1  A$main$12 |    00000AD2  A$main$12 |    00000AD3  A$main$12
+     00000AD5  A$main$12 |    00000AD6  A$main$12 |    00000AD7  A$main$12
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_CODE                  00000200    00000AA2 =        2722. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000AD9  A$main$12 |    00000ADB  A$main$12 |    00000ADD  A$main$12
+     00000ADF  A$main$12 |    00000AE0  A$main$12 |    00000AE2  A$main$12
+     00000AE4  A$main$12 |    00000AE6  A$main$12 |    00000AE7  A$main$12
+     00000AE9  A$main$12 |    00000AE9  C$main.c$ |    00000AEB  A$main$12
+     00000AEC  A$main$12 |    00000AEE  A$main$12 |    00000AEF  A$main$12
+     00000AF0  A$main$12 |    00000AF3  A$main$12 |    00000AF6  A$main$12
+     00000AF8  A$main$12 |    00000AF8  C$main.c$ |    00000AF9  A$main$12
+     00000AFA  A$main$12 |    00000AFB  A$main$12 |    00000AFC  A$main$12
+     00000AFD  A$main$12 |    00000AFE  A$main$12 |    00000AFF  A$main$12
+     00000B00  A$main$12 |    00000B03  A$main$12 |    00000B06  A$main$12
+     00000B08  A$main$12 |    00000B09  A$main$12 |    00000B09  C$main.c$
+     00000B0B  A$main$12 |    00000B0C  A$main$12 |    00000B0E  A$main$12
+     00000B10  A$main$12 |    00000B13  A$main$12 |    00000B15  A$main$12
+     00000B18  A$main$12 |    00000B1A  A$main$12 |    00000B1A  C$main.c$
+     00000B1C  A$main$12 |    00000B1C  C$main.c$ |    00000B1E  A$main$12
+     00000B1F  A$main$12 |    00000B21  A$main$12 |    00000B23  A$main$12
+     00000B26  A$main$12 |    00000B28  A$main$12 |    00000B2B  A$main$12
+     00000B2D  A$main$12 |    00000B2D  C$main.c$ |    00000B2F  A$main$12
+     00000B32  A$main$12 |    00000B34  A$main$12 |    00000B37  A$main$12
+     00000B39  A$main$12 |    00000B39  C$main.c$ |    00000B39  C$main.c$
+     00000B3B  A$main$12 |    00000B3C  A$main$12 |    00000B3E  A$main$13
+     00000B3F  A$main$13 |    00000B40  A$main$13 |    00000B41  A$main$13
+     00000B42  A$main$13 |    00000B43  A$main$13 |    00000B44  A$main$13
+     00000B45  A$main$13 |    00000B46  A$main$13 |    00000B47  A$main$13
+     00000B48  A$main$13 |    00000B49  A$main$13 |    00000B4B  A$main$13
+     00000B4C  A$main$13 |    00000B4D  A$main$13 |    00000B4E  A$main$13
+     00000B50  A$main$13 |    00000B51  A$main$13 |    00000B54  A$main$13
+     00000B55  A$main$13 |    00000B56  A$main$13 |    00000B57  A$main$13
+     00000B5A  A$main$13 |    00000B5C  A$main$13 |    00000B5D  A$main$13
+     00000B5F  A$main$13 |    00000B5F  C$main.c$ |    00000B61  A$main$13
+     00000B62  A$main$13 |    00000B64  A$main$13 |    00000B66  A$main$13
+     00000B66  C$main.c$ |    00000B68  A$main$13 |    00000B69  A$main$13
+     00000B6B  A$main$13 |    00000B6D  A$main$13 |    00000B70  A$main$13
+     00000B72  A$main$13 |    00000B72  C$main.c$ |    00000B74  A$main$13
+     00000B77  A$main$13 |    00000B79  A$main$13 |    00000B79  C$main.c$
+     00000B79  C$main.c$ |    00000B7B  A$main$13 |    00000B7C  A$main$13
+     00000B7E  A$main$13 |    00000B7F  A$main$13 |    00000B80  A$main$13
+     00000B81  A$main$13 |    00000B82  A$main$13 |    00000B83  A$main$13
+     00000B84  A$main$13 |    00000B85  A$main$13 |    00000B86  A$main$13
+     00000B87  A$main$13 |    00000B88  A$main$13 |    00000B89  A$main$13
+     00000B8B  A$main$13 |    00000B8C  A$main$13 |    00000B8D  A$main$13
+     00000B8E  A$main$13 |    00000B90  A$main$13 |    00000B91  A$main$13
+     00000B94  A$main$13 |    00000B95  A$main$13 |    00000B96  A$main$13
+     00000B97  A$main$13 |    00000B9A  A$main$13 |    00000B9C  A$main$13
+     00000B9D  A$main$13 |    00000B9F  A$main$13 |    00000B9F  C$main.c$
+     00000BA1  A$main$13 |    00000BA3  A$main$13 |    00000BA6  A$main$13
+     00000BA8  A$main$14 |    00000BA8  C$main.c$ |    00000BA8  C$main.c$
+     00000BAB  A$main$14 |    00000BAC  A$main$14 |    00000BAD  A$main$14
+     00000BAE  A$main$14 |    00000BB1  A$main$14 |    00000BB1  C$main.c$
+     00000BB4  A$main$14 |    00000BB7  A$main$14 |    00000BB7  C$main.c$
+     00000BB9  A$main$14 |    00000BB9  C$main.c$ |    00000BB9  XG$main$0
+ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_CODE                  00000200    00000AA2 =        2722. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000BBA  __divsuch |    00000BC0  __modsuch |    00000BC9  __divusch
+     00000BD2  __modusch |    00000BDF  __divscha |    00000BE4  __modscha
+     00000BEB  __divsint |    00000BF4  __modsint |    00000C00  __divucha
+     00000C05  __moducha |    00000C0C  __divuint |    00000C15  __moduint
+     00000C21  .div8     |    00000C21  .mod8     |    00000C29  .div16   
+     00000C29  .mod16    |    00000C5F  .divu8    |    00000C5F  .modu8   
+     00000C62  .divu16   |    00000C62  .modu16  
+ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER0               00000000    00000001 =           1. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000020  .call_hl 
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER1               00000000    00000005 =           5. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000028  .MemsetSm
+ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER2               00000000    00000007 =           7. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000030  .MemcpySm
+ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER3               00000000    00000008 =           8. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER4               00000000    0000004C =          76. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000080  .int      |    0000008F  _wait_int |    0000009C  __standar
+     000000AC  _refresh_
+ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER5               00000000    00000002 =           2. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER6               00000000    00000030 =          48. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER7               00000000    00000006 =           6. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER8               00000000    00000003 =           3. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER9               00000000    00000001 =           1. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADERa               00000000    00000001 =           1. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADERb               00000000    00000001 =           1. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADERc               00000000    00000002 =           2. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 24.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADERd               00000000    00000001 =           1. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 25.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADERe               00000000    00000001 =           1. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 26.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADERf               00000000    00000002 =           2. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 27.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER10              00000000    00000084 =         132. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000150  .reset    |    00000150  _reset    |    00000157  .code_sta
+     000001B9  _exit     |    000001BD  _set_inte
+ASxxxx Linker V03.00 + NoICE + sdld,  page 28.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HEADER11              00000000    00000001 =           1. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 29.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HOME                  00000CA2    0000017D =         381. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000CA2  .memset_s |    00000CAB  .memcpy_s |    00000CC8  .remove_V
+     00000CCB  .remove_i |    00000CE8  .add_VBL  |    00000CEB  .add_int 
+     00000CF6  .wait_vbl |    00000CF6  _wait_vbl |    00000D06  .display_
+     00000D06  _display_ |    00000D1E  _remove_V |    00000D29  _add_VBL 
+     00000D34  _set_tile |    00000D39  _set_bkg_ |    00000D39  _set_win_
+     00000D41  _set_spri |    00000D71  .padup    |    00000D71  _waitpadu
+     00000D81  .jpad     |    00000D81  _joypad   |    00000DA9  _waitpad 
+     00000DAA  .wait_pad |    00000DB1  _set_bkg_ |    00000DC5  .set_xy_w
+     00000DCE  .set_xy_b |    00000DDD  .set_xy_t
+ASxxxx Linker V03.00 + NoICE + sdld,  page 30.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_INITIALIZER           00000E1F    00000001 =           1. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 31.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_GSINIT                00000E20    0000000C =          12. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     00000E20  gsinit   
+ASxxxx Linker V03.00 + NoICE + sdld,  page 32.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_GSFINAL               00000E2C    00000001 =           1. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+ASxxxx Linker V03.00 + NoICE + sdld,  page 33.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_DATA                  0000C0A0    00000011 =          17. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     0000C0A0  __cpu     |    0000C0A1  __is_GBA  |    0000C0A2  .mode    
+     0000C0A3  .sys_time |    0000C0A3  _sys_time |    0000C0A5  .int_0x40
+ASxxxx Linker V03.00 + NoICE + sdld,  page 34.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_INITIALIZED           0000C0B1    00000001 =           1. bytes (REL,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     0000C0B1  __map_til
+ASxxxx Linker V03.00 + NoICE + sdld,  page 35.
+Hexadecimal  [32-Bits]
+
+Area                       Addr        Size        Decimal Bytes (Attributes)
+--------------------       ----        ----        ------- ----- ------------
+_HRAM12                00000000    00000003 =           3. bytes (ABS,CON)
+
+        Value  Global            Value  Global            Value  Global    
+        -----  ------            -----  ------            -----  ------    
+     0000FF90  __current |    0000FF92  __shadow_
+ASxxxx Linker V03.00 + NoICE + sdld,  page 36.
+
+Files Linked                              [ module(s) ]
+
+C:\gbdk\lib/gb/crt0.o                     [ Runtime ]
+BackgroundTileMap.o                       [ BackgroundTileMap ]
+BackgroundTiles1.o                        [ BackgroundTiles1 ]
+Sprite1.o                                 [ Sprite1 ]
+main.o                                    [ main ]
+
+
+Libraries Linked                          [ object file ]
+
+C:\gbdk\lib/gb/gb.lib                     [ sfr.o ]
+C:\gbdk\lib/gb/gb.lib                     [ set_data.o ]
+C:\gbdk\lib/gb/gb.lib                     [ pad.o ]
+C:\gbdk\lib/sm83/sm83.lib                 [ div.o ]
+C:\gbdk\lib/gb/gb.lib                     [ set_bk_t.o ]
+C:\gbdk\lib/gb/gb.lib                     [ set_xy_t.o ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 37.
+
+User Base Address Definitions
+
+_DATA=0xC0A0
+_CODE=0x0200
+ASxxxx Linker V03.00 + NoICE + sdld,  page 38.
+
+User Global Definitions
+
+_shadow_OAM=0xC000
+.STACK=0xE000
+.refresh_OAM=0xFF80
+
+

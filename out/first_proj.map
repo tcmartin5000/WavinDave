@@ -27,9 +27,9 @@ Area                       Addr        Size        Decimal Bytes (Attributes)
      00000006  l__HEADER |    00000007  l__HEADER |    00000008  l__HEADER
      0000000C  l__GSINIT |    00000011  l__DATA   |    00000030  l__HEADER
      0000004C  l__HEADER |    00000084  l__HEADER |    0000017D  l__HOME  
-     00000200  s__CODE   |    00000612  l__CODE   |    00000812  s__HOME  
-     0000098F  s__BASE   |    0000098F  s__CODE_0 |    0000098F  s__INITIA
-     0000098F  s__LIT    |    00000990  s__GSINIT |    0000099C  s__GSFINA
+     00000200  s__CODE   |    00000A87  l__CODE   |    00000C87  s__HOME  
+     00000E04  s__BASE   |    00000E04  s__CODE_0 |    00000E04  s__INITIA
+     00000E04  s__LIT    |    00000E05  s__GSINIT |    00000E11  s__GSFINA
      00002000  _rROMB0   |    00003000  _rROMB1   |    00004000  _rRAMB   
      00008000  __VRAM    |    00008000  __VRAM800 |    00008800  __VRAM880
      00009000  __VRAM900 |    00009800  __SCRN0   |    00009C00  __SCRN1  
@@ -72,18 +72,19 @@ Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_CODE                  00000200    00000612 =        1554. bytes (REL,CON)
+_CODE                  00000200    00000A87 =        2695. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
      00000200  _Backgrou |    00000440  _Backgrou |    00000540  _Sprite1 
-     00000620  _main     |    0000072A  __divsuch |    00000730  __modsuch
-     00000739  __divusch |    00000742  __modusch |    0000074F  __divscha
-     00000754  __modscha |    0000075B  __divsint |    00000764  __modsint
-     00000770  __divucha |    00000775  __moducha |    0000077C  __divuint
-     00000785  __moduint |    00000791  .div8     |    00000791  .mod8    
-     00000799  .div16    |    00000799  .mod16    |    000007CF  .divu8   
-     000007CF  .modu8    |    000007D2  .divu16   |    000007D2  .modu16  
+     00000620  _gravity  |    0000093B  _main     |    00000B9F  __divsuch
+     00000BA5  __modsuch |    00000BAE  __divusch |    00000BB7  __modusch
+     00000BC4  __divscha |    00000BC9  __modscha |    00000BD0  __divsint
+     00000BD9  __modsint |    00000BE5  __divucha |    00000BEA  __moducha
+     00000BF1  __divuint |    00000BFA  __moduint |    00000C06  .div8    
+     00000C06  .mod8     |    00000C0E  .div16    |    00000C0E  .mod16   
+     00000C44  .divu8    |    00000C44  .modu8    |    00000C47  .divu16  
+     00000C47  .modu16  
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -258,25 +259,25 @@ Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_HOME                  00000812    0000017D =         381. bytes (REL,CON)
+_HOME                  00000C87    0000017D =         381. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
-     00000812  .memset_s |    0000081B  .memcpy_s |    00000838  .remove_V
-     0000083B  .remove_i |    00000858  .add_VBL  |    0000085B  .add_int 
-     00000866  .wait_vbl |    00000866  _wait_vbl |    00000876  .display_
-     00000876  _display_ |    0000088E  _remove_V |    00000899  _add_VBL 
-     000008A4  _set_tile |    000008A9  _set_bkg_ |    000008A9  _set_win_
-     000008B1  _set_spri |    000008E1  .padup    |    000008E1  _waitpadu
-     000008F1  .jpad     |    000008F1  _joypad   |    00000919  _waitpad 
-     0000091A  .wait_pad |    00000921  _set_bkg_ |    00000935  .set_xy_w
-     0000093E  .set_xy_b |    0000094D  .set_xy_t
+     00000C87  .memset_s |    00000C90  .memcpy_s |    00000CAD  .remove_V
+     00000CB0  .remove_i |    00000CCD  .add_VBL  |    00000CD0  .add_int 
+     00000CDB  .wait_vbl |    00000CDB  _wait_vbl |    00000CEB  .display_
+     00000CEB  _display_ |    00000D03  _remove_V |    00000D0E  _add_VBL 
+     00000D19  _set_tile |    00000D1E  _set_bkg_ |    00000D1E  _set_win_
+     00000D26  _set_spri |    00000D56  .padup    |    00000D56  _waitpadu
+     00000D66  .jpad     |    00000D66  _joypad   |    00000D8E  _waitpad 
+     00000D8F  .wait_pad |    00000D96  _set_bkg_ |    00000DAA  .set_xy_w
+     00000DB3  .set_xy_b |    00000DC2  .set_xy_t
 ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
 Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_INITIALIZER           0000098F    00000001 =           1. bytes (REL,CON)
+_INITIALIZER           00000E04    00000001 =           1. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
@@ -285,17 +286,17 @@ Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_GSINIT                00000990    0000000C =          12. bytes (REL,CON)
+_GSINIT                00000E05    0000000C =          12. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
-     00000990  gsinit   
+     00000E05  gsinit   
 ASxxxx Linker V03.00 + NoICE + sdld,  page 25.
 Hexadecimal  [32-Bits]
 
 Area                       Addr        Size        Decimal Bytes (Attributes)
 --------------------       ----        ----        ------- ----- ------------
-_GSFINAL               0000099C    00000001 =           1. bytes (REL,CON)
+_GSFINAL               00000E11    00000001 =           1. bytes (REL,CON)
 
         Value  Global            Value  Global            Value  Global    
         -----  ------            -----  ------            -----  ------    
