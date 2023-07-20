@@ -5,6 +5,10 @@
 #include "Sprite1.h"
 #include "Dave.h"
 
+void jump(Dave *dave) {
+    
+}
+
 void gravity(Dave *dave)
 {
 
@@ -12,7 +16,7 @@ void gravity(Dave *dave)
     uint8_t tileToBeChecked;
 
     /* Calculate intended velocity. */
-    if (dave->gravTimer % 5 == 0)
+    if (dave->gravTimer % 8 == 0)
     {
         if (dave->vertVelocity == 0)
         {
@@ -51,7 +55,7 @@ void gravity(Dave *dave)
         }
 
         /* Are we going down TWO tiles? */
-        if (!cantFall && dave->vertVelocity > 15)
+        if (!cantFall && dave->vertVelocity + dave->y > 15)
         {
             /* Are we beneath one or two tiles? */
             if (dave->x != 0)
@@ -142,6 +146,10 @@ int main(void)
         /* Handle input. */
         if (joypadVal = joypad())
         {
+            if (joypadVal & J_A) {
+                jump(&dave);
+            }
+
             if (joypadVal & J_LEFT)
             {
                 scroll_bkg(-1, 0);
@@ -150,12 +158,12 @@ int main(void)
                 if (dave.x < 0)
                 {
                     dave.tilex = (dave.tilex - 1) % 32;
-                    dave.x = dave.x % 8;
+                    dave.x = 7;
                 }
                 else if (dave.x > 7)
                 {
                     dave.tilex = (dave.tilex + 1) % 32;
-                    dave.x = dave.x % 8;
+                    dave.x = 0;
                 }
 
                 /* Animate Dave sprite. */
@@ -215,8 +223,7 @@ int main(void)
                     set_sprite_prop(0, !S_FLIPX);
                 }
                 dave.mvtTimer = (dave.mvtTimer + 1) % 18;
-            }
-            else if (joypadVal == J_UP)
+            } else if (joypadVal == J_UP)
             {
                 if (dave.mvtTimer < 6)
                 {
