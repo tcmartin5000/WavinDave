@@ -5,116 +5,216 @@
 #include "Sprite1.h"
 #include "Dave.h"
 
-void jump(Dave *dave) {
-    
+uint8_t getBeneaths(Dave *dave, uint8_t index)
+{
+    /* Tile beneath. */
+    switch (index)
+    {
+    case 0:
+        return BackgroundTileMap[(((dave->tiley + 1) % 18) * 32) + dave->tilex];
+        break;
+        /* Tile beneath and to the right. */
+    case 1:
+        return BackgroundTileMap[(((dave->tiley + 1) % 18) * 32) + ((dave->tilex + 1) % 32)];
+        break;
+        /* Tile two beneath. */
+    case 2:
+        return BackgroundTileMap[(((dave->tiley + 2) % 18) * 32) + dave->tilex];
+        break;
+        /* Tile two beneath and one to the right. */
+    case 3:
+        return BackgroundTileMap[(((dave->tiley + 2) % 18) * 32) + ((dave->tilex + 1) % 32)];
+        break;
+    }
+
+    return 0;
 }
 
 void gravity(Dave *dave)
 {
 
     uint8_t cantFall = 0;
-    uint8_t tileToBeChecked;
+    uint8_t tilesBeneath[4] = {getBeneaths(dave, 0), getBeneaths(dave, 1), getBeneaths(dave, 2), getBeneaths(dave, 3)};
 
     /* Calculate intended velocity. */
-    if (dave->gravTimer % 8 == 0)
+    if (dave->physTimer % 8 == 0)
     {
-        if (dave->vertVelocity == 0)
+        if (dave->gravityForce == 0)
         {
-            dave->vertVelocity = 1;
+            dave->gravityForce = 1;
         }
-        else if (dave->vertVelocity < 16)
+        else if (dave->gravityForce < 16)
         {
-            dave->vertVelocity *= 2;
+            dave->gravityForce *= 2;
         }
     }
 
-    dave->gravTimer++;
-
     /* See if position change according to velocity is possible and move accordingly. */
-    /* Are we going down a tile? */
-    if (dave->vertVelocity + dave->y > 7)
+    /* Are we going down ONE tile? */
+    if (dave->gravityForce + dave->y > 7)
     {
         /* Are we beneath one or two tiles? */
         if (dave->x != 0)
         {
-            /* Two, so check the tile further right. */
-            tileToBeChecked = BackgroundTileMap[(((dave->tiley + 1) % 18) * 32) + ((dave->tilex + 1) % 32)];
-            /* If it's a solid tile, then we can't fall! (0x00, 0x01, 0x0C, 0x0D, 0x0E are all solid) */
-            if (!(0x01 < tileToBeChecked && (tileToBeChecked < 0x0C || tileToBeChecked == 0x0F)))
+            /* Two, so check the tile further right.
+               If it's a solid tile, then we can't fall! (0x00, 0x01, 0x0C, 0x0D, 0x0E are all solid) */
+            if (!(0x01 < tilesBeneath[1] && (tilesBeneath[1] < 0x0C || tilesBeneath[1] == 0x0F)))
             {
                 cantFall = 1;
             }
         }
 
-        /* Check the main tile. */
-        tileToBeChecked = BackgroundTileMap[(((dave->tiley + 1) % 18) * 32) + dave->tilex];
-        /* If it's a solid tile, then we can't fall! (0x00, 0x01, 0x0C, 0x0D, 0x0E are all solid) */
-        if (!(0x01 < tileToBeChecked && (tileToBeChecked < 0x0C || tileToBeChecked == 0x0F)))
+        /* Check the main tile.
+           If it's a solid tile, then we can't fall! (0x00, 0x01, 0x0C, 0x0D, 0x0E are all solid) */
+        if (!(0x01 < tilesBeneath[0] && (tilesBeneath[0] < 0x0C || tilesBeneath[0] == 0x0F)))
         {
             cantFall = 1;
         }
 
         /* Are we going down TWO tiles? */
-        if (!cantFall && dave->vertVelocity + dave->y > 15)
+        if (!cantFall && dave->gravityForce + dave->y > 15)
         {
             /* Are we beneath one or two tiles? */
             if (dave->x != 0)
             {
-                /* Two, so check the tile further right. */
-                tileToBeChecked = BackgroundTileMap[(((dave->tiley + 2) % 18) * 32) + ((dave->tilex + 1) % 32)];
-                /* If it's a solid tile, then we can't fall! (0x00, 0x01, 0x0C, 0x0D, 0x0E are all solid) */
-                if (!(0x01 < tileToBeChecked && (tileToBeChecked < 0x0C || tileToBeChecked == 0x0F)))
+                /* Two, so check the tile further right.
+                   If it's a solid tile, then we can't fall! (0x00, 0x01, 0x0C, 0x0D, 0x0E are all solid) */
+                if (!(0x01 < tilesBeneath[3] && (tilesBeneath[3] < 0x0C || tilesBeneath[3] == 0x0F)))
                 {
                     cantFall = 2;
                 }
             }
 
-            /* Check the main tile. */
-            tileToBeChecked = BackgroundTileMap[(((dave->tiley + 2) % 18) * 32) + dave->tilex];
-            /* If it's a solid tile, then we can't fall! (0x00, 0x01, 0x0C, 0x0D, 0x0E are all solid) */
-            if (!(0x01 < tileToBeChecked && (tileToBeChecked < 0x0C || tileToBeChecked == 0x0F)))
+            /* Check the main tile.
+               If it's a solid tile, then we can't fall! (0x00, 0x01, 0x0C, 0x0D, 0x0E are all solid) */
+            if (!(0x01 < tilesBeneath[2] && (tilesBeneath[2] < 0x0C || tilesBeneath[2] == 0x0F)))
             {
                 cantFall = 2;
             }
         }
 
         /* Can we fall? Move as intended. */
-        if (cantFall == 0) {
-            scroll_sprite(0, 0, dave->vertVelocity);
+        if (cantFall == 0)
+        {
+            scroll_sprite(0, 0, dave->gravityForce);
             /* Adjust the current tile appropriately. */
-            if (dave->y + dave->vertVelocity > 15) {
+            if (dave->y + dave->gravityForce > 15)
+            {
                 dave->tiley = (dave->tiley + 2) % 18;
-            } else {
+            }
+            else
+            {
                 dave->tiley = (dave->tiley + 1) % 18;
             }
-            dave->y = (dave->y + dave->vertVelocity) % 8;
-        /* Can we only fall less than a tile's worth? Close that gap. */
-        } else if (cantFall == 1) {
+            dave->y = (dave->y + dave->gravityForce) % 8;
+            /* Can we only fall less than a tile's worth? Close that gap. */
+        }
+        else if (cantFall == 1)
+        {
             uint8_t difference = 7 - dave->y;
             scroll_sprite(0, 0, difference);
             dave->y = 7;
-            dave->vertVelocity = 0;
-        /* Can we only fall less than two tiles' worth? Close that gap. */
-        } else {
+            dave->gravityForce = 0;
+            /* Can we only fall less than two tiles' worth? Close that gap. */
+        }
+        else
+        {
             uint8_t difference = 15 - dave->y;
             scroll_sprite(0, 0, difference);
             dave->y = 7;
             dave->tiley = (dave->tiley + 1) % 18;
-            dave->vertVelocity = 0;
+            dave->gravityForce = 0;
         }
     }
 
     else
     {
         /* If we're going down no tiles, then move him down. */
-        scroll_sprite(0, 0, dave->vertVelocity);
-        dave->y += dave->vertVelocity;
+        scroll_sprite(0, 0, dave->gravityForce);
+        dave->y += dave->gravityForce;
     }
+}
+
+void jump(Dave *dave, uint8_t incrementJump, uint8_t startJump)
+{
+
+    dave->physTimer++;
+
+    uint8_t isOnGround = 0;
+    uint8_t tilesBeneath[4] = {getBeneaths(dave, 0), getBeneaths(dave, 1), getBeneaths(dave, 2), getBeneaths(dave, 3)};
+
+    /* Are we on the bottom of a tile? */
+    if (dave->y == 7)
+    {
+        /* Are we above one or two tiles? */
+        if (dave->x != 0)
+        {
+            /* Two tiles, check further right one. */
+            if (!((0x01 < tilesBeneath[1] && tilesBeneath[1] < 0x0C) || tilesBeneath[1] == 0x0F))
+            {
+                isOnGround = 1;
+                /* Check main tile now. */
+            }
+            else if (!((0x01 < tilesBeneath[0] && tilesBeneath[0] < 0x0C) || tilesBeneath[0] == 0x0F))
+            {
+                isOnGround = 1;
+            }
+            /* Check only the main tile. */
+        }
+        else if (!((0x01 < tilesBeneath[0] && tilesBeneath[0] < 0x0C) || tilesBeneath[0] == 0x0F))
+        {
+            isOnGround = 1;
+        }
+    }
+
+    /* Are we jumping from the ground? */
+    if (isOnGround && startJump)
+    {
+        dave->jumpForce = 4;
+        dave->physTimer = 1;
+        dave->gravityForce = 0;
+        /* Are we leaning into our jump? */
+    }
+    else if (incrementJump && dave->jumpForce != 0)
+    {
+        if (dave->physTimer % 4 == 0)
+        {
+            dave->jumpForce /= 2;
+        }
+        /* If not, then fall faster. */
+    }
+    else if (dave->jumpForce != 0)
+    {
+        dave->jumpForce /= 2;
+    }
+    else
+    {
+        /* There is no need to go up, so we'll have the gravity handler bring us down instead. */
+        gravity(dave);
+        return;
+    }
+
+    /* Scroll the appropriate amount of pixels upward. */
+    scroll_sprite(0, 0, -dave->jumpForce);
+    /* Adjust tile and position values. */
+    dave->y -= dave->jumpForce;
+    if (dave->y < -8)
+    {
+        dave->tiley = (((dave->tiley - 2) % 18) + 18) % 18;
+    }
+    else if (dave->y < 0)
+    {
+        dave->tiley = (((dave->tiley - 1) % 18) + 18) % 18;
+    }
+    /* Negative modulo works stupidly in C so we have to do this. */
+    dave->y = ((dave->y % 8) + 8) % 8;
 }
 
 int main(void)
 {
     uint8_t joypadVal = 0;
+    uint8_t jumpHeld = 0;
+    uint8_t jumpPressed = 0;
     Dave dave;
 
     /* Initialize Dave. */
@@ -123,8 +223,9 @@ int main(void)
     dave.y = 7;
     dave.tiley = 0x06;
     dave.mvtTimer = 0;
-    dave.vertVelocity = 0;
-    dave.gravTimer = 0;
+    dave.gravityForce = 0;
+    dave.physTimer = 0;
+    dave.jumpForce = 0;
 
     /* Initialize background tile information. */
     set_bkg_data(0, 20, BackgroundTiles1);
@@ -146,8 +247,26 @@ int main(void)
         /* Handle input. */
         if (joypadVal = joypad())
         {
-            if (joypadVal & J_A) {
-                jump(&dave);
+            if (joypadVal & J_A)
+            {
+                if (jumpHeld == 0)
+                {
+                    jumpPressed = 1;
+                }
+                else
+                {
+                    jumpPressed = 0;
+                }
+
+                if (jumpPressed == 1)
+                {
+                    jumpHeld = 1;
+                }
+            }
+            else
+            {
+                jumpPressed = 0;
+                jumpHeld = 0;
             }
 
             if (joypadVal & J_LEFT)
@@ -157,12 +276,12 @@ int main(void)
                 /* Process tile move. */
                 if (dave.x < 0)
                 {
-                    dave.tilex = (dave.tilex - 1) % 32;
+                    dave.tilex = (((dave.tilex - 1) % 32) + 32) % 32;
                     dave.x = 7;
                 }
                 else if (dave.x > 7)
                 {
-                    dave.tilex = (dave.tilex + 1) % 32;
+                    dave.tilex = (((dave.tilex + 1) % 32) + 32) % 32;
                     dave.x = 0;
                 }
 
@@ -194,12 +313,12 @@ int main(void)
                 /* Process tile move. */
                 if (dave.x < 0)
                 {
-                    dave.tilex = (dave.tilex - 1) % 32;
+                    dave.tilex = (((dave.tilex - 1) % 32) + 32) % 32;
                     dave.x = dave.x % 8;
                 }
                 else if (dave.x > 7)
                 {
-                    dave.tilex = (dave.tilex + 1) % 32;
+                    dave.tilex = (((dave.tilex + 1) % 32) + 32) % 32;
                     dave.x = dave.x % 8;
                 }
 
@@ -223,7 +342,8 @@ int main(void)
                     set_sprite_prop(0, !S_FLIPX);
                 }
                 dave.mvtTimer = (dave.mvtTimer + 1) % 18;
-            } else if (joypadVal == J_UP)
+            }
+            else if (joypadVal == J_UP)
             {
                 if (dave.mvtTimer < 6)
                 {
@@ -242,10 +362,12 @@ int main(void)
         {
             dave.mvtTimer = 0;
             set_sprite_tile(0, 0);
+            jumpHeld = 0;
+            jumpPressed = 0;
         }
 
-        /* Handle gravity. */
-        gravity(&dave);
+        /* Handle jumping and gravity. */
+        jump(&dave, jumpHeld, jumpPressed);
 
         wait_vbl_done();
     }
