@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\gbdk\\include"
+                "C:\\gbdk\\include",
+                ".\\hUGEDriver\\include"
             ],
             "defines": [
                 "_DEBUG",

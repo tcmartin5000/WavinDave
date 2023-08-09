@@ -4,6 +4,9 @@
 #include "BackgroundTiles1.h"
 #include "Sprite1.h"
 #include "Dave.h"
+#include "hUGEDriver.h"
+
+extern const hUGESong_t dave_bgm;
 
 uint8_t getBeneaths(Dave *dave, uint8_t index)
 {
@@ -217,6 +220,11 @@ int main(void)
     uint8_t jumpPressed = 0;
     Dave dave;
 
+    /* Initialize hardware registers. */
+    NR52_REG = 0x80;
+    NR51_REG = 0xFF;
+    NR50_REG = 0x77;
+
     /* Initialize Dave. */
     dave.x = 0;
     dave.tilex = 0x0A;
@@ -237,6 +245,11 @@ int main(void)
     set_sprite_tile(0, 0);
     move_sprite(0, 88, 57);
 
+    /* Initialize music. */
+    CRITICAL {
+        hUGE_init(&dave_bgm);
+        add_VBL(hUGE_dosound);
+    }
     /* Initialize display. */
     SHOW_BKG;
     SHOW_SPRITES;
@@ -244,6 +257,8 @@ int main(void)
 
     while (1)
     {
+        wait_vbl_done();
+  
         /* Handle input. */
         if (joypadVal = joypad())
         {
@@ -368,8 +383,6 @@ int main(void)
 
         /* Handle jumping and gravity. */
         jump(&dave, jumpHeld, jumpPressed);
-
-        wait_vbl_done();
     }
     return 1;
 }
