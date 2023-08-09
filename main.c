@@ -176,7 +176,6 @@ void jump(Dave *dave, uint8_t incrementJump, uint8_t startJump)
         dave->jumpForce = 4;
         dave->physTimer = 1;
         dave->gravityForce = 0;
-        dave->jumpLength = 16;
 
         /* Begin SFX by modifying channel 2 register values. */
         /* VVVVAPPP, where V is starting volume, A is decrement or increment, and P is period.
@@ -184,16 +183,21 @@ void jump(Dave *dave, uint8_t incrementJump, uint8_t startJump)
            else to adjust these settings? That's why I'm doing this before 21. We'll see what
            happens.
         */
-        NR22_REG = 0b11110010;
+        NR12_REG = 0b11110010;
+
+        /* Unique to channel 1, set sweep value.
+           XPPPNSSS, where P is period, N is isNegative, S is shift per six steps.
+        */
+        NR10_REG = 0b00100111;
 
         /* DDLLLLLL, where D is duty value, L is length value. */
-        NR21_REG = 0b11001000;
+        NR11_REG = 0b11001000;
 
         /* FFFFFFFF, where F is frequency, least significant bits (sets initial). */
-        NR23_REG = 0x00;
+        NR13_REG = 0x00;
 
         /* TLXXXFFF, where T is trigger, L is length on/off, F is frequency, most significant bits. */
-        NR24_REG = 0b10000110;
+        NR14_REG = 0b10000110;
 
         /* Are we leaning into our jump? */
     }
@@ -265,11 +269,11 @@ int main(void)
     set_sprite_tile(0, 0);
     move_sprite(0, 88, 57);
 
-    /* Initialize music. */
+    /* Initialize music. 
     CRITICAL {
         hUGE_init(&dave_bgm);
         add_VBL(hUGE_dosound);
-    }
+    } */
     /* Initialize display. */
     SHOW_BKG;
     SHOW_SPRITES;
@@ -288,16 +292,13 @@ int main(void)
                 {
                     jumpPressed = 1;
                     jumpFreq = 0;
+                    jumpHeld = 1;
                 }
                 else
                 {
                     jumpPressed = 0;
                 }
 
-                if (jumpPressed == 1)
-                {
-                    jumpHeld = 1;
-                }
             }
             else
             {
@@ -405,13 +406,6 @@ int main(void)
         /* Handle jumping and gravity. */
         jump(&dave, jumpHeld, jumpPressed);
 
-        /* Handle jump sfx. */
-        if (dave.jumpLength > 0) {
-            /* Reading frequency and length data always returns 1, so a separate counter is required. */
-            jumpFreq += 10;
-            NR23_REG = jumpFreq;
-            dave.jumpLength--;
-        }
     }
     return 1;
 }

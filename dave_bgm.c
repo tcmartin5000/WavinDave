@@ -55,7 +55,7 @@ static const unsigned char P100[] = {
     DN(E_5,1,0x000),
     DN(___,0,0x000),
     DN(___,0,0x10F),
-    DN(___,0,0x000),
+    DN(___,0,0x100),
     DN(___,0,0x000),
     DN(___,0,0xE00),
     DN(Fs5,1,0x000),
@@ -75,7 +75,7 @@ static const unsigned char P101[] = {
     DN(___,0,0x202),
     DN(___,0,0x202),
     DN(___,0,0x202),
-    DN(___,0,0x201),
+    DN(___,0,0x000),
     DN(___,0,0x000),
     DN(___,0,0x000),
     DN(___,0,0x000),
@@ -602,15 +602,15 @@ static const unsigned char itNoiseSP2[] = {
     DN(___,0,0x000),
     DN(___,1,0x000),
 };
-static const unsigned char* const order1[] = {P100,P101,P102,P103};
-static const unsigned char* const order2[] = {P200,P200,P200,P200};
+static const unsigned char* const order1[] = {P200,P200,P200,P200};
+static const unsigned char* const order2[] = {P100,P101,P102,P103};
 static const unsigned char* const order3[] = {P300,P300,P300,P300};
 static const unsigned char* const order4[] = {P400,P400,P400,P400};
 
 static const hUGEDutyInstr_t duty_instruments[] = {
     {8,192,240,itSquareSP1,128},
     {8,128,195,itSquareSP2,128},
-    {8,192,243,0,128},
+    {8,128,240,0,128},
     {8,128,240,0,128},
     {8,128,240,0,128},
     {8,128,240,0,128},
