@@ -176,6 +176,25 @@ void jump(Dave *dave, uint8_t incrementJump, uint8_t startJump)
         dave->jumpForce = 4;
         dave->physTimer = 1;
         dave->gravityForce = 0;
+        dave->jumpLength = 16;
+
+        /* Begin SFX by modifying channel 2 register values. */
+        /* VVVVAPPP, where V is starting volume, A is decrement or increment, and P is period.
+           Apparently writing to this register can cause undefined behavior, but I don't know how
+           else to adjust these settings? That's why I'm doing this before 21. We'll see what
+           happens.
+        */
+        NR22_REG = 0b11110010;
+
+        /* DDLLLLLL, where D is duty value, L is length value. */
+        NR21_REG = 0b11001000;
+
+        /* FFFFFFFF, where F is frequency, least significant bits (sets initial). */
+        NR23_REG = 0x00;
+
+        /* TLXXXFFF, where T is trigger, L is length on/off, F is frequency, most significant bits. */
+        NR24_REG = 0b10000110;
+
         /* Are we leaning into our jump? */
     }
     else if (incrementJump && dave->jumpForce != 0)
@@ -218,12 +237,13 @@ int main(void)
     uint8_t joypadVal = 0;
     uint8_t jumpHeld = 0;
     uint8_t jumpPressed = 0;
+    uint8_t jumpFreq = 0;
     Dave dave;
 
     /* Initialize hardware registers. */
     NR52_REG = 0x80;
-    NR51_REG = 0xFF;
     NR50_REG = 0x77;
+    NR51_REG = 0xFF;
 
     /* Initialize Dave. */
     dave.x = 0;
@@ -258,7 +278,7 @@ int main(void)
     while (1)
     {
         wait_vbl_done();
-  
+
         /* Handle input. */
         if (joypadVal = joypad())
         {
@@ -267,6 +287,7 @@ int main(void)
                 if (jumpHeld == 0)
                 {
                     jumpPressed = 1;
+                    jumpFreq = 0;
                 }
                 else
                 {
@@ -383,6 +404,14 @@ int main(void)
 
         /* Handle jumping and gravity. */
         jump(&dave, jumpHeld, jumpPressed);
+
+        /* Handle jump sfx. */
+        if (dave.jumpLength > 0) {
+            /* Reading frequency and length data always returns 1, so a separate counter is required. */
+            jumpFreq += 10;
+            NR23_REG = jumpFreq;
+            dave.jumpLength--;
+        }
     }
     return 1;
 }

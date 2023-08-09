@@ -13,6 +13,7 @@ typedef struct Dave {
     int8_t tilex;
     int8_t tiley;
     uint8_t physTimer;
+    uint8_t jumpLength;
 } Dave;
 
 #endif
