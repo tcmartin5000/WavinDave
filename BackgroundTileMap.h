@@ -26,7 +26,8 @@
 #define BackgroundTileMapBank 0
 
 extern const unsigned char BackgroundTileMap[];
-extern const int BackgroundTileMapSpawnPositions[];
+extern const unsigned char BackgroundTileMapSpawnXPositions[];
+extern const unsigned char BackgroundTileMapSpawnYPositions[];
 
 #endif
 
