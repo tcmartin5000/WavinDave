@@ -22,9 +22,11 @@
 
 #define BackgroundTileMapWidth 32
 #define BackgroundTileMapHeight 18
+#define BackgroundTileMapNumberSpawnPositions 71
 #define BackgroundTileMapBank 0
 
 extern const unsigned char BackgroundTileMap[];
+extern const int BackgroundTileMapSpawnPositions[];
 
 #endif
 

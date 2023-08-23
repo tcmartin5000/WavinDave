@@ -1,10 +1,13 @@
 #include <gb/gb.h>
 #include <gbdk/font.h>
+#include <rand.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include "BackgroundTileMap.h"
 #include "BackgroundTiles1.h"
 #include "Sprite1.h"
 #include "Dave.h"
+#include "Neighbor.h"
 #include "hUGEDriver.h"
 
 extern const hUGESong_t dave_bgm;
@@ -25,48 +28,61 @@ void incrementAndDrawScore(uint8_t *scoreArray, uint8_t *highScoreArray, uint8_t
             if (i == 0)
             {
                 scoreArray[i] = 99;
-                scoreArray[i+1] = 99;
-                scoreArray[i+2] = 99;
-                for (uint8_t j = 0; j < 6; j++) {
+                scoreArray[i + 1] = 99;
+                scoreArray[i + 2] = 99;
+                for (uint8_t j = 0; j < 6; j++)
+                {
                     set_vram_byte(score_pointers[j], 0x0A);
                 }
             }
             // If not, then set the increment to this segment / 100, mod this segment by 100, draw.
             increment = scoreArray[i] / 100;
             scoreArray[i] %= 100;
-            if (scoreArray[i] == 0) {
-                set_vram_byte(score_pointers[i*2], 0x01);
-                set_vram_byte(score_pointers[i*2 + 1], 0x01);
-            } else {
-                set_vram_byte(score_pointers[i*2], (scoreArray[i]/10) + 1);
-                set_vram_byte(score_pointers[i*2 + 1], (scoreArray[i]%10) + 1);
+            if (scoreArray[i] == 0)
+            {
+                set_vram_byte(score_pointers[i * 2], 0x01);
+                set_vram_byte(score_pointers[i * 2 + 1], 0x01);
+            }
+            else
+            {
+                set_vram_byte(score_pointers[i * 2], (scoreArray[i] / 10) + 1);
+                set_vram_byte(score_pointers[i * 2 + 1], (scoreArray[i] % 10) + 1);
             }
         }
         // If we've not overflown, then draw the new number.
-        else {
-            set_vram_byte(score_pointers[i*2], (scoreArray[i]/10) + 1);
-            set_vram_byte(score_pointers[i*2 + 1], (scoreArray[i]%10) + 1);
+        else
+        {
+            set_vram_byte(score_pointers[i * 2], (scoreArray[i] / 10) + 1);
+            set_vram_byte(score_pointers[i * 2 + 1], (scoreArray[i] % 10) + 1);
             break;
         }
     }
 
     // Increment high score.
-    if (scoreArray[0] > highScoreArray[0]) {
-        for (uint8_t i = 0; i < 6; i++) {
-            set_vram_byte(score_pointers[i+6], get_vram_byte(score_pointers[i]));
+    if (scoreArray[0] > highScoreArray[0])
+    {
+        for (uint8_t i = 0; i < 6; i++)
+        {
+            set_vram_byte(score_pointers[i + 6], get_vram_byte(score_pointers[i]));
         }
         highScoreArray[0] = scoreArray[0];
         highScoreArray[1] = scoreArray[1];
         highScoreArray[2] = scoreArray[2];
-    } else if (scoreArray[1] > highScoreArray[1] && highScoreArray[0] == scoreArray[0]) {
-        for (uint8_t i = 2; i < 6; i++) {
-            set_vram_byte(score_pointers[i+6], get_vram_byte(score_pointers[i]));
+    }
+    else if (scoreArray[1] > highScoreArray[1] && highScoreArray[0] == scoreArray[0])
+    {
+        for (uint8_t i = 2; i < 6; i++)
+        {
+            set_vram_byte(score_pointers[i + 6], get_vram_byte(score_pointers[i]));
         }
         highScoreArray[1] = scoreArray[1];
         highScoreArray[2] = scoreArray[2];
-    } else if (scoreArray[2] > highScoreArray[2] && highScoreArray[0] == scoreArray[0] && highScoreArray[1] == scoreArray[1]) {
-        for (uint8_t i = 4; i < 6; i++) {
-            set_vram_byte(score_pointers[i+6], get_vram_byte(score_pointers[i]));
+    }
+    else if (scoreArray[2] > highScoreArray[2] && highScoreArray[0] == scoreArray[0] && highScoreArray[1] == scoreArray[1])
+    {
+        for (uint8_t i = 4; i < 6; i++)
+        {
+            set_vram_byte(score_pointers[i + 6], get_vram_byte(score_pointers[i]));
         }
         highScoreArray[2] = scoreArray[2];
     }
@@ -300,13 +316,70 @@ void jump(Dave *dave, uint8_t incrementJump, uint8_t startJump)
     dave->y = ((dave->y % 8) + 8) % 8;
 }
 
+/* Hardcoded to modify sprite 1 for testing. */
+void scrollNeighbors(int8_t amount)
+{
+    scroll_sprite(1, amount, 0);
+}
+
+/* These are hard coded because I was getting some unexplainable bugs otherwise. 
+   It's not ideal, but it'll do. */
+void spawnNeighborForMap1(Neighbor *neighbors, uint8_t numberNeighbors)
+{
+    uint8_t validSpawnFound = 0;
+    uint8_t spawnX = 0;
+    uint8_t spawnY = 0;
+
+    // Very big potential for error here if I'm off by one. Check here if there's weird behavior.
+    while (!validSpawnFound)
+    {
+        // Randomly pull an index from the array.
+        uint8_t spawnIndex = BackgroundTileMapSpawnPositions[rand() % BackgroundTileMapNumberSpawnPositions];
+        // Convert that index into x/y coordinates.
+        spawnX = spawnIndex % 32;
+        spawnY = (spawnIndex / 32) - 1;
+        // Ensure no duplicates
+        validSpawnFound = 1;
+        // If there's none right now then it's not a duplicate.
+        if (numberNeighbors != 0)
+        {
+            for (uint8_t i = 0; i < numberNeighbors; i++)
+            {
+                if (neighbors[i].x == spawnX && neighbors[i].y == spawnY)
+                {
+                    validSpawnFound = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Add to master list.
+    Neighbor n;
+    n.x = spawnX;
+    n.y = spawnY;
+    neighbors[numberNeighbors] = n;
+
+    // Draw the sprite and move to the appropriate coordinates. Sprite 0 is the player, hence the + 1.
+    set_sprite_tile(numberNeighbors + 1, 0);
+    move_sprite(numberNeighbors + 1, (spawnX + 1) * 8, (spawnY + 1) * 8);
+}
+
 int main(void)
 {
+
+    /* Initialize RNG. */
+    initrand(DIV_REG);
+
     font_t hudFont;
     uint8_t joypadVal = 0;
     uint8_t jumpHeld = 0;
     uint8_t jumpPressed = 0;
     uint8_t jumpFreq = 0;
+    uint8_t neighborAnimCtr = 0;
+    /* Should be no greater than 9 for hardware reasons. */
+    uint8_t numberNeighbors = 0;
+    Neighbor neighbors[9];
 
     /* Set default state. Equivalent to 1UP 000000-HI 000000 */
     const unsigned char DEFAULT_WINDOW_MAP[] = {
@@ -330,7 +403,7 @@ int main(void)
     dave.x = 0;
     dave.tilex = 0x0A;
     dave.y = 7;
-    dave.tiley = 0x06;
+    dave.tiley = 0x0E;
     dave.mvtTimer = 0;
     dave.gravityForce = 0;
     dave.physTimer = 0;
@@ -349,7 +422,11 @@ int main(void)
     SPRITES_8x16;
     set_sprite_data(0, 20, Sprite1);
     set_sprite_tile(0, 0);
-    move_sprite(0, 88, 57);
+    move_sprite(0, 88, 121);
+
+    /* Hardcode a neighbor sprite for testing. */
+    // set_sprite_tile(1, 0);
+    // move_sprite(1, 8, 16);
 
     /* Initialize window data (text, for score display) */
     set_win_tiles(0, 0, 20, 1, DEFAULT_WINDOW_MAP);
@@ -361,6 +438,10 @@ int main(void)
         score_pointers[i] = get_win_xy_addr(i + 4, 0);
         score_pointers[i + 6] = get_win_xy_addr(i + 14, 0);
     }
+
+    /* Spawns in a starting neighbor, probably refactor when done testing. */
+    spawnNeighborForMap1(neighbors, numberNeighbors);
+    numberNeighbors++;
 
     /* Initialize music. */
     CRITICAL
@@ -376,8 +457,6 @@ int main(void)
 
     while (1)
     {
-        wait_vbl_done();
-
         /* Handle input. */
         if (joypadVal = joypad())
         {
@@ -409,6 +488,7 @@ int main(void)
             {
                 scroll_bkg(-1, 0);
                 dave.x--;
+                scrollNeighbors(1);
                 /* Process tile move. */
                 if (dave.x < 0)
                 {
@@ -446,6 +526,7 @@ int main(void)
             {
                 scroll_bkg(1, 0);
                 dave.x++;
+                scrollNeighbors(-1);
                 /* Process tile move. */
                 if (dave.x < 0)
                 {
@@ -492,6 +573,10 @@ int main(void)
                     set_sprite_tile(0, 12);
                 }
                 dave.mvtTimer = (dave.mvtTimer + 1) % 12;
+
+                /* Reinitialize RNG, for extra randomness. Very arbitrary but why not.
+                   Might backfire, we'll see. */
+                initrand(DIV_REG);
             }
             else
             {
@@ -508,6 +593,12 @@ int main(void)
 
         /* Handle jumping and gravity. */
         jump(&dave, jumpHeld, jumpPressed);
+
+        /* Handle neighbor animations. */
+        neighborAnimCtr++;
+        // neighborAnimate(neighborAnimCtr, numberNeighbors);
+
+        wait_vbl_done();
     }
     return 1;
 }
