@@ -316,7 +316,6 @@ void jump(Dave *dave, uint8_t incrementJump, uint8_t startJump)
     dave->y = ((dave->y % 8) + 8) % 8;
 }
 
-/* Hardcoded to modify sprite 1 for testing. */
 void scrollNeighbors(int8_t amount)
 {
     for (uint8_t i = 0; i < 9; i++)
@@ -327,30 +326,39 @@ void scrollNeighbors(int8_t amount)
 
 /* These are hard coded because I was getting some unexplainable bugs otherwise.
    It's not ideal, but it'll do. */
-uint8_t spawnNeighborForMap1(Neighbor *neighbors, uint8_t numberNeighbors, uint8_t neighborAnimCounter, uint8_t screenOffset)
+uint8_t spawnNeighborForMap1(Neighbor *neighbors, uint8_t numberNeighbors, uint8_t screenOffset)
 {
     /* Don't draw if we're full, but also add some randomness to the draw call. */
-    if (numberNeighbors < 9 && neighborAnimCounter % 255 == 0 && rand() % 3 == 0)
+    if (numberNeighbors < 9 && sys_time % 255 == 0 && rand() % 3 == 0)
     {
         uint8_t validSpawnFound = 0;
+        /* Where in the array the new neighbor should be placed. */
+        uint8_t placement = 0;
         uint8_t spawnIndex;
 
         // Very big potential for error here if I'm off by one. Check here if there's weird behavior.
         do
         {
-            // Randomly pull an index from the array.
+            // Randomly pull an index from the valid spawn point array.
             spawnIndex = rand() % BackgroundTileMapNumberSpawnPositions;
             // Ensure no duplicates
             validSpawnFound = 1;
             // If there's none right now then it's not a duplicate.
             if (numberNeighbors != 0)
             {
-                for (uint8_t i = 0; i < numberNeighbors; i++)
+                for (uint8_t i = 0; i < 9; i++)
                 {
-                    if (neighbors[i].x == BackgroundTileMapSpawnXPositions[spawnIndex] && neighbors[i].y == BackgroundTileMapSpawnYPositions[spawnIndex])
+                    if (neighbors[i].spriteNumber != 255)
                     {
-                        validSpawnFound = 0;
-                        break;
+                        if (neighbors[i].x == BackgroundTileMapSpawnXPositions[spawnIndex] && neighbors[i].y == BackgroundTileMapSpawnYPositions[spawnIndex])
+                        {
+                            validSpawnFound = 0;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        placement = i;
                     }
                 }
             }
@@ -360,32 +368,48 @@ uint8_t spawnNeighborForMap1(Neighbor *neighbors, uint8_t numberNeighbors, uint8
         Neighbor n;
         n.x = BackgroundTileMapSpawnXPositions[spawnIndex];
         n.y = BackgroundTileMapSpawnYPositions[spawnIndex];
-        neighbors[numberNeighbors] = n;
+        n.spriteNumber = placement;
+        neighbors[placement] = n;
 
         // Draw the sprite and move to the appropriate coordinates. Sprite 0 is the player, hence the + 1.
-        set_sprite_tile(numberNeighbors + 1, 0);
-        move_sprite(numberNeighbors + 1, ((n.x + 1) * 8) - screenOffset, ((n.y + 1) * 8) + 1);
+        set_sprite_tile(placement + 1, 0);
+        move_sprite(placement + 1, ((n.x + 1) * 8) - screenOffset, ((n.y + 1) * 8) + 1);
         return 1;
     }
     return 0;
 }
 
-void neighborAnimate(uint8_t numberNeighbors)
+void neighborAnimate()
 {
     if (sys_time % 40 < 19)
     {
-        for (uint8_t i = 0; i < numberNeighbors; i++)
+        for (uint8_t i = 0; i < 9; i++)
         {
             set_sprite_tile(i + 1, 2);
         }
     }
     else
     {
-        for (uint8_t i = 0; i < numberNeighbors; i++)
+        for (uint8_t i = 0; i < 9; i++)
         {
             set_sprite_tile(i + 1, 0);
         }
     }
+}
+
+int isScoring(Neighbor *neighborArray, Dave dave)
+{
+    for (uint8_t i = 0; i < 9; i++)
+    {
+        if (neighborArray[i].spriteNumber != 255 && dave.tilex == neighborArray[i].x && dave.tiley == neighborArray[i].y) {
+            neighborArray[i].x = 255;
+            neighborArray[i].y = 255;
+            move_sprite(neighborArray[i].spriteNumber + 1, 0, 0);
+            neighborArray[i].spriteNumber = 255;
+            return 1;
+        }
+    }
+    return 0;
 }
 
 int main(void)
@@ -394,15 +418,22 @@ int main(void)
     /* Initialize RNG. */
     initrand(DIV_REG * sys_time);
 
-    font_t hudFont;
     uint8_t joypadVal = 0;
     uint8_t jumpHeld = 0;
     uint8_t jumpPressed = 0;
     uint8_t jumpFreq = 0;
-    uint8_t formerAnimCounterPleaseRemove = 0;
     /* Should be no greater than 9 for hardware reasons. */
     uint8_t numberNeighbors = 0;
+    /* At some point this should probably be converted into a linked list of neighbors
+       to eliminate performance overhead on removal from the list. Will require some
+       major refactoring and dynamic allocation shenanigans. I don't want to do that
+       right now. */
     Neighbor neighbors[9];
+    for (uint8_t i = 0; i < 9; i++) {
+        neighbors[i].x = 255;
+        neighbors[i].y = 255;
+        neighbors[i].spriteNumber = 255;
+    }
 
     /* Set default state. Equivalent to 1UP 000000-HI 000000 */
     const unsigned char DEFAULT_WINDOW_MAP[] = {
@@ -433,7 +464,7 @@ int main(void)
 
     /* Initialize text tile data. */
     font_init();
-    hudFont = font_load(font_min);
+    const font_t hudFont = font_load(font_min);
     font_set(hudFont);
 
     /* Initialize background tile information. Offset to avoid overwriting font. */
@@ -473,17 +504,18 @@ int main(void)
     {
 
         /* Spawn in new neighbors if need be. Do this before input so scroll doesn't break. */
-        if (spawnNeighborForMap1(neighbors, numberNeighbors, formerAnimCounterPleaseRemove, ((dave.tilex * 8) + dave.x) - 80)) {
+        if (spawnNeighborForMap1(neighbors, numberNeighbors, ((dave.tilex * 8) + dave.x) - 80))
+        {
             numberNeighbors++;
         };
 
         /* Handle input. */
         if (joypadVal = joypad())
         {
-            if (joypadVal & J_B)
+            /*if (joypadVal & J_B)
             {
                 incrementAndDrawScore(score, highScore, 1);
-            }
+            }*/
 
             if (joypadVal & J_A)
             {
@@ -580,6 +612,12 @@ int main(void)
             }
             else if (joypadVal == J_UP)
             {
+                if (isScoring(neighbors, dave))
+                {
+                    incrementAndDrawScore(score, highScore, 1);
+                    numberNeighbors--;
+                }
+
                 if (sys_time % 12 < 6)
                 {
                     /* Index of first sprite in wave cycle. */
@@ -611,10 +649,7 @@ int main(void)
         jump(&dave, jumpHeld, jumpPressed);
 
         /* Handle neighbor animations. */
-        neighborAnimate(numberNeighbors);
-
-        /* Increment animation counter. */
-        formerAnimCounterPleaseRemove++;
+        neighborAnimate();
 
         wait_vbl_done();
     }

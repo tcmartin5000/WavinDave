@@ -9,8 +9,8 @@ typedef struct Dave {
     uint8_t jumpForce;
     int8_t x;
     int8_t y;
-    int8_t tilex;
-    int8_t tiley;
+    uint8_t tilex;
+    uint8_t tiley;
     uint8_t physTimer;
 
 } Dave;
