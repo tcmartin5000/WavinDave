@@ -2,7 +2,6 @@
 #define DAVE_H
 
 typedef struct Dave {
-    uint8_t mvtTimer;
     /* Originally planned to be a singular velocity value, hence the signed
        type, I just can't be bothered to look and see if this is safe to change
        or not so it will remain as such. */

@@ -370,16 +370,16 @@ uint8_t spawnNeighborForMap1(Neighbor *neighbors, uint8_t numberNeighbors, uint8
     return 0;
 }
 
-void neighborAnimate(uint8_t animateCounter, uint8_t numberNeighbors)
+void neighborAnimate(uint8_t numberNeighbors)
 {
-    if (animateCounter == 127)
+    if (sys_time % 40 < 19)
     {
         for (uint8_t i = 0; i < numberNeighbors; i++)
         {
-            set_sprite_tile(i + 1, 1);
+            set_sprite_tile(i + 1, 2);
         }
     }
-    else if (animateCounter == 0)
+    else
     {
         for (uint8_t i = 0; i < numberNeighbors; i++)
         {
@@ -392,14 +392,14 @@ int main(void)
 {
 
     /* Initialize RNG. */
-    initrand(DIV_REG);
+    initrand(DIV_REG * sys_time);
 
     font_t hudFont;
     uint8_t joypadVal = 0;
     uint8_t jumpHeld = 0;
     uint8_t jumpPressed = 0;
     uint8_t jumpFreq = 0;
-    uint8_t neighborAnimCtr = 0;
+    uint8_t formerAnimCounterPleaseRemove = 0;
     /* Should be no greater than 9 for hardware reasons. */
     uint8_t numberNeighbors = 0;
     Neighbor neighbors[9];
@@ -427,7 +427,6 @@ int main(void)
     dave.tilex = 0x0A;
     dave.y = 7;
     dave.tiley = 0x0E;
-    dave.mvtTimer = 0;
     dave.gravityForce = 0;
     dave.physTimer = 0;
     dave.jumpForce = 0;
@@ -474,7 +473,7 @@ int main(void)
     {
 
         /* Spawn in new neighbors if need be. Do this before input so scroll doesn't break. */
-        if (spawnNeighborForMap1(neighbors, numberNeighbors, neighborAnimCtr, ((dave.tilex * 8) + dave.x) - 80)) {
+        if (spawnNeighborForMap1(neighbors, numberNeighbors, formerAnimCounterPleaseRemove, ((dave.tilex * 8) + dave.x) - 80)) {
             numberNeighbors++;
         };
 
@@ -523,13 +522,13 @@ int main(void)
                 }
 
                 /* Animate Dave sprite. */
-                if (dave.mvtTimer < 6)
+                if (sys_time % 18 < 6)
                 {
                     /* Index of first sprite in walk cycle left. */
                     set_sprite_tile(0, 4);
                     set_sprite_prop(0, S_FLIPX);
                 }
-                else if (dave.mvtTimer < 12)
+                else if (sys_time % 18 < 12)
                 {
                     /* Index of second sprite in walk cycle left. */
                     set_sprite_tile(0, 6);
@@ -541,7 +540,6 @@ int main(void)
                     set_sprite_tile(0, 8);
                     set_sprite_prop(0, S_FLIPX);
                 }
-                dave.mvtTimer = (dave.mvtTimer + 1) % 18;
             }
             else if (joypadVal & J_RIGHT)
             {
@@ -561,13 +559,13 @@ int main(void)
                 }
 
                 /* Animate Dave sprite. */
-                if (dave.mvtTimer < 6)
+                if (sys_time % 18 < 6)
                 {
                     /* Index of first sprite in walk cycle right. */
                     set_sprite_tile(0, 4);
                     set_sprite_prop(0, !S_FLIPX);
                 }
-                else if (dave.mvtTimer < 12)
+                else if (sys_time % 18 < 12)
                 {
                     /* Index of second sprite in walk cycle right. */
                     set_sprite_tile(0, 6);
@@ -579,11 +577,10 @@ int main(void)
                     set_sprite_tile(0, 8);
                     set_sprite_prop(0, !S_FLIPX);
                 }
-                dave.mvtTimer = (dave.mvtTimer + 1) % 18;
             }
             else if (joypadVal == J_UP)
             {
-                if (dave.mvtTimer < 6)
+                if (sys_time % 12 < 6)
                 {
                     /* Index of first sprite in wave cycle. */
                     set_sprite_tile(0, 10);
@@ -593,11 +590,10 @@ int main(void)
                     /* Index of second sprite in wave cycle. */
                     set_sprite_tile(0, 12);
                 }
-                dave.mvtTimer = (dave.mvtTimer + 1) % 12;
 
                 /* Reinitialize RNG, for extra randomness. Very arbitrary but why not.
                    Might backfire, we'll see. */
-                initrand(DIV_REG);
+                initrand(DIV_REG * sys_time);
             }
             else
             {
@@ -606,7 +602,6 @@ int main(void)
         }
         else
         {
-            dave.mvtTimer = 0;
             set_sprite_tile(0, 0);
             jumpHeld = 0;
             jumpPressed = 0;
@@ -616,10 +611,10 @@ int main(void)
         jump(&dave, jumpHeld, jumpPressed);
 
         /* Handle neighbor animations. */
-        neighborAnimate(neighborAnimCtr, numberNeighbors);
+        neighborAnimate(numberNeighbors);
 
         /* Increment animation counter. */
-        neighborAnimCtr++;
+        formerAnimCounterPleaseRemove++;
 
         wait_vbl_done();
     }

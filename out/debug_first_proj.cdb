@@ -253,7 +253,7 @@ S:Lmain.spawnNeighborForMap1$sloc2$0_1$0({1}SC:U),B,1,-6
 S:Lmain.spawnNeighborForMap1$sloc3$0_1$0({2}SI:U),B,1,-5
 F:G$neighborAnimate$0_0$0({2}DF,SV:S),C,0,1,0,0,0
 S:Lmain.neighborAnimate$numberNeighbors$1_0$0({1}SC:U),B,1,-1
-S:Lmain.neighborAnimate$animateCounter$1_0$0({1}SC:U),R,0,0,[c]
+S:Lmain.neighborAnimate$neighborAnimCtr$1_0$0({1}SC:U),R,0,0,[c]
 S:Lmain.neighborAnimate$i$3_0$231({1}SC:U),R,0,0,[c]
 S:Lmain.neighborAnimate$__3276800037$5_0$236({1}SC:U),R,0,0,[e]
 S:Lmain.neighborAnimate$__3276800038$5_0$236({1}SC:U),R,0,0,[]
