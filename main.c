@@ -401,7 +401,8 @@ int isScoring(Neighbor *neighborArray, Dave dave)
 {
     for (uint8_t i = 0; i < 9; i++)
     {
-        if (neighborArray[i].spriteNumber != 255 && dave.tilex == neighborArray[i].x && dave.tiley == neighborArray[i].y) {
+        /* If coordinates match, give or take one on the x-axis to account for being on either side, give point and clear sprite. */
+        if (neighborArray[i].spriteNumber != 255 && (dave.tilex == neighborArray[i].x || dave.tilex == (((neighborArray[i].x - 1) % 32) + 32) % 32) && dave.tiley == neighborArray[i].y) {
             neighborArray[i].x = 255;
             neighborArray[i].y = 255;
             move_sprite(neighborArray[i].spriteNumber + 1, 0, 0);
