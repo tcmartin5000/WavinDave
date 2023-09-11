@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:\\gbdk\\include",
-                ".\\hUGEDriver\\include"
+                ".\\hUGEDriver\\include",
+                "C:\\Users\\tcmar\\Documents\\GBDK\\gbdk\\include"
             ],
             "defines": [
                 "_DEBUG",

@@ -369,6 +369,7 @@ uint8_t spawnNeighborForMap1(Neighbor *neighbors, uint8_t numberNeighbors, uint8
         n.x = BackgroundTileMapSpawnXPositions[spawnIndex];
         n.y = BackgroundTileMapSpawnYPositions[spawnIndex];
         n.spriteNumber = placement;
+        n.secondsLeft = 30;
         neighbors[placement] = n;
 
         // Draw the sprite and move to the appropriate coordinates. Sprite 0 is the player, hence the + 1.
@@ -402,7 +403,8 @@ int isScoring(Neighbor *neighborArray, Dave dave)
     for (uint8_t i = 0; i < 9; i++)
     {
         /* If coordinates match, give or take one on the x-axis to account for being on either side, give point and clear sprite. */
-        if (neighborArray[i].spriteNumber != 255 && (dave.tilex == neighborArray[i].x || dave.tilex == (((neighborArray[i].x - 1) % 32) + 32) % 32) && dave.tiley == neighborArray[i].y) {
+        if (neighborArray[i].spriteNumber != 255 && (dave.tilex == neighborArray[i].x || dave.tilex == (((neighborArray[i].x - 1) % 32) + 32) % 32) && dave.tiley == neighborArray[i].y)
+        {
             neighborArray[i].x = 255;
             neighborArray[i].y = 255;
             move_sprite(neighborArray[i].spriteNumber + 1, 0, 0);
@@ -411,6 +413,26 @@ int isScoring(Neighbor *neighborArray, Dave dave)
         }
     }
     return 0;
+}
+
+int isGameOver(Neighbor *neighborArray)
+{
+    if (sys_time % 60 == 0)
+    {
+        for (uint8_t i = 0; i < 9; i++)
+        {
+            if (neighborArray[i].spriteNumber != 255)
+            {
+                neighborArray[i].secondsLeft--;
+                
+                if (neighborArray[i].secondsLeft == 0)
+                {
+                    return 0;
+                }
+            }
+        }
+    }
+    return 1;
 }
 
 int main(void)
@@ -430,7 +452,8 @@ int main(void)
        major refactoring and dynamic allocation shenanigans. I don't want to do that
        right now. */
     Neighbor neighbors[9];
-    for (uint8_t i = 0; i < 9; i++) {
+    for (uint8_t i = 0; i < 9; i++)
+    {
         neighbors[i].x = 255;
         neighbors[i].y = 255;
         neighbors[i].spriteNumber = 255;
@@ -441,6 +464,9 @@ int main(void)
         0x02, 0x1F, 0x1A, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
         0x2D,
         0x12, 0x13, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01};
+
+    const unsigned char GAME_OVER_WINDOW_MAP[] = {
+        0x11, 0x0B, 0x17, 0x0F, 0x00, 0x19, 0x20, 0x0F, 0x1C};
 
     /* 32-bit integers are too big, so we'll use multiple 8-bit instead. Three segments
        of two digits, specifically, to speed up drawing at the expense of memory usage.
@@ -501,7 +527,9 @@ int main(void)
     SHOW_SPRITES;
     DISPLAY_ON;
 
-    while (1)
+    uint8_t gameActive = 1;
+
+    while (gameActive)
     {
 
         /* Spawn in new neighbors if need be. Do this before input so scroll doesn't break. */
@@ -513,11 +541,6 @@ int main(void)
         /* Handle input. */
         if (joypadVal = joypad())
         {
-            /*if (joypadVal & J_B)
-            {
-                incrementAndDrawScore(score, highScore, 1);
-            }*/
-
             if (joypadVal & J_A)
             {
                 if (jumpHeld == 0)
@@ -652,7 +675,12 @@ int main(void)
         /* Handle neighbor animations. */
         neighborAnimate();
 
-        wait_vbl_done();
+        // Check game over state
+        gameActive = isGameOver(neighbors);
+
+        vsync();
     }
+    // Set game over message, good enough to test with.
+    set_win_tiles(0, 0, 9, 1, GAME_OVER_WINDOW_MAP);
     return 1;
 }
